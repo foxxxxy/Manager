@@ -15,6 +15,7 @@
 -(void) forgotPassword: (NSString *) email access: (void(^)(BOOL))checkAccess;
 -(void) getRepresentative: (void(^)(NSMutableArray *))getRepresentativeList;
 -(void) logoutUser: (void(^)(BOOL))checkCompletion;
+-(void) getEvaluationHistory:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList;
 -(void) getEvaluation:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList;
-    
+
 @end

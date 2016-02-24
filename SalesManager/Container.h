@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "RestKitConfiguration.h"
-#import "LoginRequest.h"
+#import "UNIXEpochDate.h"
+
 
 @interface Container : NSObject
 
 @property (strong, nonatomic) RestKitConfiguration *restConfiguration;
+@property (strong, nonatomic) UNIXEpochDate *unixData;
 
 +(Container *)sharedInstance;
 

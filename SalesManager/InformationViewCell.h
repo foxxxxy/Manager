@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface InformationViewCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UILabel *informationLabel;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ResetPasswordViewController.h"
 #import "Container.h"
+#import "LoginRequest.h"
 
 #define  REGULAREXPRESSIONPATTERN @"\\w+@\\w+.\\w+"
 

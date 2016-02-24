@@ -2,21 +2,20 @@
 //  Evaluation.h
 //  SalesManager
 //
-//  Created by Student on 2/23/16.
+//  Created by Student on 2/24/16.
 //  Copyright © 2016 Student. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
+#import "ActionPlanRequest.h"
 
-@interface Evaluation : UITableViewCell
+@interface Evaluation : NSObject
 
-@property (nonatomic) NSInteger evaluationId;
-@property (strong, nonatomic) NSString *representativeName;
-@property (strong, nonatomic) NSDate *dateUTC;
-@property (strong, nonatomic) NSString *status;
-@property (strong, nonatomic) NSString *customerInfo;
+@property (strong, nonatomic) NSString *categoryName;
+@property (strong, nonatomic) NSString *comment;
+@property (strong, nonatomic) NSMutableArray <ActionPlanRequest *> *actionPlans;
 
-+(void)mappingToObject:(RKObjectManager *) objectManager;
++(void) mapToObjectManager:(RKObjectManager *)objectManager;
 
 @end

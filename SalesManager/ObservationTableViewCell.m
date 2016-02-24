@@ -10,7 +10,7 @@
 
 @interface ObservationTableViewCell ()
 
-@property (strong, nonatomic) NSString *observation;
+@property (strong, nonatomic) NSString *observationComment;
 
 @end
 
@@ -23,8 +23,8 @@
 }
 
 -(void)showEwaluationComment:(NSNotification*) notification {
-    self.observation = [notification.userInfo objectForKey:@"evaluationComment"];
-        self.observationLabel.text = self.observation;
+    self.observationComment = [notification.userInfo objectForKey:@"evaluationComment"];
+        self.observationLabel.text = self.observationComment;
 }
 
 - (void)dealloc {

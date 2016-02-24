@@ -15,4 +15,6 @@
 - (IBAction)backButtonPressed:(id)sender;
 - (IBAction)infoButtonPressed:(id)sender;
 
+-(void)setCurrentIndex:indexPath;
+
 @end

@@ -11,5 +11,7 @@
 @interface ReviewViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 - (IBAction)backButtonPressed:(id)sender;
+- (IBAction)submitButtonPressed:(id)sender;
+- (IBAction)deleteButtonPressed:(id)sender;
 
 @end

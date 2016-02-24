@@ -13,8 +13,8 @@
 #import "Container.h"
 #import "ForgotPasswordRequest.h"
 #import "SalesRepresentative.h"
+#import "EvaluationHistoryRequest.h"
 #import "Evaluation.h"
-
 
 @implementation RestKitConfiguration
 
@@ -47,7 +47,8 @@
     [Authentication mappingToObject:objectManager :loginRequestMapping :loginResponseMapping];
     [ForgotPasswordRequest mappingToObject:objectManager :loginResponseMapping];
     [SalesRepresentative mappingToObject:objectManager];
-    [Evaluation mappingToObject:objectManager];
+    [EvaluationHistoryRequest mappingToObject:objectManager];
+    [Evaluation mapToObjectManager:objectManager];
 }
 
 -(void) loginEmail: (NSString*) email password: (NSString*) password access: (void(^)(BOOL))checkAccess  {
@@ -123,9 +124,8 @@
     
 }
 
--(void) getEvaluation:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList{
+-(void) getEvaluationHistory:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList{
     NSString *identityUrl = [NSString stringWithFormat:@"%@%d", @"evaluation/history/", identity];
-    NSLog(@"identityUrl, %@", identityUrl);
     [[RKObjectManager sharedManager] getObjectsAtPath:identityUrl parameters:nil
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *result){
                                                   getEvaluationList((NSMutableArray *)result.array);
@@ -135,6 +135,17 @@
                                               }];
 }
 
+-(void) getEvaluation:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList{
+    NSString *identityUrl = [NSString stringWithFormat:@"%@%d", @"evaluation/", identity];
+    [[RKObjectManager sharedManager] getObjectsAtPath:identityUrl parameters:nil
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *result){
+                                                  getEvaluationList((NSMutableArray *)result.array);
+                                                  NSLog(@"result.array[0] %@", result.array[0]);
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error){
+                                                  NSLog(@"%@", error.localizedDescription);
+                                              }];
+}
 
 -(void)registerAuthenticationTocken: (NSString *) authorizationToken{
     [[[RKObjectManager sharedManager] HTTPClient] setDefaultHeader:@"authToken" value:authorizationToken];

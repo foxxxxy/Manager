@@ -15,8 +15,13 @@
 #import "SalesRepresentative.h"
 #import "Evaluation.h"
 #import "EvaluationExistCell.h"
+#import "CustomerInfoViewController.h"
 
-@interface EvaluationTableViewController ()
+
+@interface EvaluationTableViewController () {
+    UIPopoverController *popover;
+}
+
 
 @property (strong, nonatomic) NSMutableArray* identifierCellList;
 
@@ -70,27 +75,46 @@
 
 - (IBAction)newEvaluationButtonPressed:(id)sender {
     
-    if ([self checkSalesTitle]) {
-        [self showCustomerInfoPopover];
-    };
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    CustomerInfoViewController *controller = (CustomerInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
+    controller.delegate = self;
+    
+    //    controller.modalPresentationStyle = UIModalPresentationPopover;
+    //    [self presentViewController:controller animated:YES completion:nil];
+    //
+    //    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    //    popController.permittedArrowDirections = 0;
+    //    popController.delegate = self;
+    //    popController.sourceView = self.view;
+    //
+    //    CGRect parent = self.view.frame;
+    //    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 0, 0);
+    //
+    //    self.salesTitlePopover = popController;
+    CGPoint center = self.view.center;
+    
+    CGRect popverRect = CGRectMake(center.x-150, center.y-200, 300, 400);
+    
+    popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    [popover presentPopoverFromRect:((UIView *)sender).frame inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 -(void)showCustomerInfoPopover{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
-    
-    controller.modalPresentationStyle = UIModalPresentationPopover;
-    [self presentViewController:controller animated:YES completion:nil];
-    
-    UIPopoverPresentationController *popController = [controller popoverPresentationController];
-    popController.permittedArrowDirections = 0;
-    popController.delegate = self;
-    popController.sourceView = self.view;
-    
-    CGRect parent = self.view.frame;
-    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 0, 0);
-    
-    self.salesTitlePopover = popController;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
+//    
+//    controller.modalPresentationStyle = UIModalPresentationPopover;
+//    [self presentViewController:controller animated:YES completion:nil];
+//    
+//    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+//    popController.permittedArrowDirections = 0;
+//    popController.delegate = self;
+//    popController.sourceView = self.view;
+//    
+//    CGRect parent = self.view.frame;
+//    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 0, 0);
+//    
+//    self.salesTitlePopover = popController;
 }
 
 -(BOOL)checkSalesTitle{

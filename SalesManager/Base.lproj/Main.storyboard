@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hVV-M7-INy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hVV-M7-INy">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -491,12 +491,16 @@
                     </navigationItem>
                     <connections>
                         <segue destination="yPu-oU-bXW" kind="show" identifier="showEvaluationReview" id="kc9-d1-M80"/>
+<<<<<<< HEAD
                         <segue destination="9U0-P1-Qqk" kind="show" identifier="showRaitingCategories" id="c08-Fm-Xr5"/>
+=======
+                        <segue destination="9U0-P1-Qqk" kind="show" id="Mfe-mX-EfQ"/>
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XqN-Iw-NOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2408" y="147"/>
+            <point key="canvasLocation" x="2527" y="147"/>
         </scene>
         <!--Sales Title View Controller-->
         <scene sceneID="WTI-Ga-Cdu">
@@ -684,7 +688,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+<<<<<<< HEAD
                                     <action selector="skipButtonPressed:" destination="27K-e5-x3o" eventType="touchUpInside" id="Nzg-iF-xpG"/>
+=======
+                                    <action selector="skip:" destination="27K-e5-x3o" eventType="touchUpInside" id="2dm-f7-35V"/>
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOi-dh-DlN">
@@ -698,7 +706,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+<<<<<<< HEAD
                                     <action selector="saveButtonPressed:" destination="27K-e5-x3o" eventType="touchUpInside" id="oQy-kB-JjF"/>
+=======
+                                    <action selector="save:" destination="27K-e5-x3o" eventType="touchUpInside" id="cNt-5d-qY4"/>
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
                                 </connections>
                             </button>
                         </subviews>
@@ -724,7 +736,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ay3-pj-O6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="5057" y="-90"/>
+=======
+            <point key="canvasLocation" x="3115" y="-65"/>
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
         </scene>
         <!--Raiting-->
         <scene sceneID="joe-KA-bUm">
@@ -875,7 +891,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LwU-sy-rZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="3427" y="147"/>
+=======
+            <point key="canvasLocation" x="4187" y="172"/>
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
         </scene>
         <!--Due Data View Controller-->
         <scene sceneID="UPM-Ev-IG2">

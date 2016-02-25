@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PopoverSelectionDelegate.h"
+<<<<<<< HEAD
 #import "CustomerInfoViewControllerDelegate.h"
+=======
+#import "CustomerInfoViewController.h"
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
 
 @interface EvaluationTableViewController : UITableViewController <UIPopoverPresentationControllerDelegate, PopoverSelectionDelegate, CustomerInfoViewControllerDelegate>
 

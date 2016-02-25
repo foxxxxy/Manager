@@ -266,12 +266,18 @@ alpha:1.0]
 
 - (void)save:(NSString *)text {
     NSLog(@"SAVE:\n%@", text);
+<<<<<<< HEAD
     [self performSegueWithIdentifier:@"showRaitingCategories" sender:self];
+=======
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
 }
 
 - (void)skip {
     NSLog(@"Skip");
+<<<<<<< HEAD
     [self performSegueWithIdentifier:@"showRaitingCategories" sender:self];
+=======
+>>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
 }
 
 @end

@@ -41,18 +41,6 @@
     [self.customerInfoTextView addSubview:_placeholderLabel];
 }
 
-- (IBAction)save:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(save:)]) {
-        [_delegate save:_customerInfoTextView.text];
-    }
-}
-
-- (IBAction)skip:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(skip)]) {
-        [_delegate skip];
-    }
-}
-
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if (![textView hasText]) {

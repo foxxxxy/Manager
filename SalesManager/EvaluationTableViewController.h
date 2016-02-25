@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PopoverSelectionDelegate.h"
+#import "CustomerInfoViewController.h"
 
-@interface EvaluationTableViewController : UITableViewController <UIPopoverPresentationControllerDelegate, PopoverSelectionDelegate>
+@interface EvaluationTableViewController : UITableViewController <UIPopoverPresentationControllerDelegate, PopoverSelectionDelegate, CustomerInfoViewControllerDelegate>
 
 - (IBAction)backButtonPressed:(id)sender;
 - (IBAction)newEvaluationButtonPressed:(id)sender;

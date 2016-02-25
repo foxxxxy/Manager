@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CustomerInfoViewControllerDelegate <NSObject>
+
+- (void)save:(NSString *)text;
+- (void)skip;
+
+@end
+
 @interface CustomerInfoViewController : UIViewController <UITextViewDelegate>
+
+@property (weak, nonatomic) id <CustomerInfoViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UITextView *customerInfoTextView;
 

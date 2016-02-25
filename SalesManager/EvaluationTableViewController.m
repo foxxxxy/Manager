@@ -80,8 +80,9 @@ alpha:1.0]
 
 -(void)showCustomerInfoPopover{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
+    CustomerInfoViewController *controller = (CustomerInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
     
+    controller.delegate = self;
     controller.modalPresentationStyle = UIModalPresentationPopover;
     [self presentViewController:controller animated:YES completion:nil];
     
@@ -265,6 +266,14 @@ alpha:1.0]
 
 -(void)stopSpinner:(void(^)())dismissed{
     [self.spinnerController dismissViewControllerAnimated:YES completion:^(){dismissed();}];
+}
+
+- (void)save:(NSString *)text {
+    NSLog(@"SAVE:\n%@", text);
+}
+
+- (void)skip {
+    NSLog(@"Skip");
 }
 
 @end

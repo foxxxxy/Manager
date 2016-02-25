@@ -7,8 +7,13 @@
 //
 
 #import "ReviewViewController.h"
+#import "ReviewTableViewCell.h"
 
 @interface ReviewViewController ()
+
+@property (strong, nonatomic) NSArray *identifierCellList;
+@property (strong, nonatomic) NSArray *raitingCategotiesLabelList;
+@property (strong, nonatomic) NSArray *subCategotiesLabelList;
 
 @end
 
@@ -17,6 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.identifierCellList = @[@"ReviewCell", @"ReviewCell", @"ReviewCell", @"ReviewCell"];
+    self.raitingCategotiesLabelList = @[@"Professionalism and Integrity", @"Business Acumen", @"Results Orientation", @"Selling Skills"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,12 +38,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return self.identifierCellList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = @"ReviewCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    cell.reviewLabel.text = [self.raitingCategotiesLabelList objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -42,4 +52,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)submitButtonPressed:(id)sender {
+}
+
+- (IBAction)deleteButtonPressed:(id)sender {
+}
 @end

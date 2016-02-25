@@ -63,6 +63,13 @@
 		3FA0B88D1C73568900F130F3 /* DueDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0B88C1C73568900F130F3 /* DueDataViewController.m */; };
 		3FA0B8911C736B0000F130F3 /* EmptyPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0B8901C736B0000F130F3 /* EmptyPointView.m */; };
 		3FA0B8A31C73739100F130F3 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0B8A21C73739100F130F3 /* InformationViewController.m */; };
+		3FAE4E711C7DCC5A001AE429 /* Evaluation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E701C7DCC5A001AE429 /* Evaluation.m */; };
+		3FAE4E751C7DCE63001AE429 /* UNIXEpochDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E741C7DCE63001AE429 /* UNIXEpochDate.m */; };
+		3FAE4E781C7DD4ED001AE429 /* ActionPlanRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E771C7DD4ED001AE429 /* ActionPlanRequest.m */; };
+		3FAE4E7C1C7DFB40001AE429 /* ReviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E7B1C7DFB40001AE429 /* ReviewTableViewCell.m */; };
+		3FAE4E811C7E01DA001AE429 /* UnpairedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E801C7E01DA001AE429 /* UnpairedTableView.m */; };
+		3FAE4E841C7E01F6001AE429 /* PairedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E831C7E01F6001AE429 /* PairedTableView.m */; };
+		3FAE4E871C7E0235001AE429 /* SubReviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4E861C7E0235001AE429 /* SubReviewTableCell.m */; };
 		3FAE6A021C6BA50400AE878E /* CustomerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE6A011C6BA50400AE878E /* CustomerInfoViewController.m */; };
 		3FB9388F1C7617CC0037A8A0 /* ReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB9388E1C7617CC0037A8A0 /* ReviewViewController.m */; };
 		3FB938A31C761E590037A8A0 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FB938A21C761E590037A8A0 /* libRestKit.a */; };
@@ -88,7 +95,7 @@
 		3FD870B21C7225F000ABE999 /* RaitingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD870B11C7225F000ABE999 /* RaitingTableViewCell.m */; };
 		3FD870B51C723B5D00ABE999 /* CommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD870B41C723B5D00ABE999 /* CommentsTableViewCell.m */; };
 		3FD870B81C724CB500ABE999 /* GeneralHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD870B71C724CB500ABE999 /* GeneralHeaderTableViewCell.m */; };
-		3FE472801C7CA8BC0073B090 /* Evaluation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE4727F1C7CA8BC0073B090 /* Evaluation.m */; };
+		3FE472801C7CA8BC0073B090 /* EvaluationHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE4727F1C7CA8BC0073B090 /* EvaluationHistoryRequest.m */; };
 		3FE472831C7CD2FC0073B090 /* EvaluationExistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE472821C7CD2FC0073B090 /* EvaluationExistCell.m */; };
 		C65B5749A3D5F5A792EA8041 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 385AB6E2F489D1B44E5BC777 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -167,6 +174,20 @@
 		3FA0B8901C736B0000F130F3 /* EmptyPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyPointView.m; sourceTree = "<group>"; };
 		3FA0B8A11C73739100F130F3 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		3FA0B8A21C73739100F130F3 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
+		3FAE4E6F1C7DCC5A001AE429 /* Evaluation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Evaluation.h; sourceTree = "<group>"; };
+		3FAE4E701C7DCC5A001AE429 /* Evaluation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Evaluation.m; sourceTree = "<group>"; };
+		3FAE4E731C7DCE63001AE429 /* UNIXEpochDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNIXEpochDate.h; sourceTree = "<group>"; };
+		3FAE4E741C7DCE63001AE429 /* UNIXEpochDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNIXEpochDate.m; sourceTree = "<group>"; };
+		3FAE4E761C7DD4ED001AE429 /* ActionPlanRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionPlanRequest.h; sourceTree = "<group>"; };
+		3FAE4E771C7DD4ED001AE429 /* ActionPlanRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionPlanRequest.m; sourceTree = "<group>"; };
+		3FAE4E7A1C7DFB40001AE429 /* ReviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTableViewCell.h; sourceTree = "<group>"; };
+		3FAE4E7B1C7DFB40001AE429 /* ReviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewTableViewCell.m; sourceTree = "<group>"; };
+		3FAE4E7F1C7E01DA001AE429 /* UnpairedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnpairedTableView.h; sourceTree = "<group>"; };
+		3FAE4E801C7E01DA001AE429 /* UnpairedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnpairedTableView.m; sourceTree = "<group>"; };
+		3FAE4E821C7E01F6001AE429 /* PairedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PairedTableView.h; sourceTree = "<group>"; };
+		3FAE4E831C7E01F6001AE429 /* PairedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PairedTableView.m; sourceTree = "<group>"; };
+		3FAE4E851C7E0235001AE429 /* SubReviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubReviewTableCell.h; sourceTree = "<group>"; };
+		3FAE4E861C7E0235001AE429 /* SubReviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubReviewTableCell.m; sourceTree = "<group>"; };
 		3FAE6A001C6BA50400AE878E /* CustomerInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerInfoViewController.h; sourceTree = "<group>"; };
 		3FAE6A011C6BA50400AE878E /* CustomerInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerInfoViewController.m; sourceTree = "<group>"; };
 		3FB9388D1C7617CC0037A8A0 /* ReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewViewController.h; sourceTree = "<group>"; };
@@ -212,8 +233,8 @@
 		3FD870B41C723B5D00ABE999 /* CommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewCell.m; sourceTree = "<group>"; };
 		3FD870B61C724CB500ABE999 /* GeneralHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralHeaderTableViewCell.h; sourceTree = "<group>"; };
 		3FD870B71C724CB500ABE999 /* GeneralHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralHeaderTableViewCell.m; sourceTree = "<group>"; };
-		3FE4727E1C7CA8BC0073B090 /* Evaluation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Evaluation.h; sourceTree = "<group>"; };
-		3FE4727F1C7CA8BC0073B090 /* Evaluation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Evaluation.m; sourceTree = "<group>"; };
+		3FE4727E1C7CA8BC0073B090 /* EvaluationHistoryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationHistoryRequest.h; sourceTree = "<group>"; };
+		3FE4727F1C7CA8BC0073B090 /* EvaluationHistoryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationHistoryRequest.m; sourceTree = "<group>"; };
 		3FE472811C7CD2FC0073B090 /* EvaluationExistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationExistCell.h; sourceTree = "<group>"; };
 		3FE472821C7CD2FC0073B090 /* EvaluationExistCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationExistCell.m; sourceTree = "<group>"; };
 		72F64DFEC1C3FA2780BD5082 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +284,7 @@
 		3F5F55DF1C6A14ED00851DD4 /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3FAE4E791C7DFB0F001AE429 /* ReviewCell */,
 				3FCC98081C7B8A1C001CF775 /* Raiting General Cells */,
 				3FCC98071C7B76CF001CF775 /* Raiting Cells */,
 				3FCC98031C7B6889001CF775 /* Evaluation Cells */,
@@ -306,8 +328,8 @@
 			children = (
 				3F5F55EA1C6A3F2600851DD4 /* SalesRepresentative.h */,
 				3F5F55EB1C6A3F2600851DD4 /* SalesRepresentative.m */,
-				3FE4727E1C7CA8BC0073B090 /* Evaluation.h */,
-				3FE4727F1C7CA8BC0073B090 /* Evaluation.m */,
+				3FAE4E6F1C7DCC5A001AE429 /* Evaluation.h */,
+				3FAE4E701C7DCC5A001AE429 /* Evaluation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -414,6 +436,7 @@
 		3F7596EC1C68BC31005042B8 /* SalesManager */ = {
 			isa = PBXGroup;
 			children = (
+				3FAE4E721C7DCE15001AE429 /* DateUTC */,
 				3FD12F541C776B7B0075A0BE /* Request */,
 				3FD12F4A1C773FD80075A0BE /* Container */,
 				3FB938AF1C7620220037A8A0 /* ConfigureRestKit */,
@@ -499,6 +522,46 @@
 			name = Points;
 			sourceTree = "<group>";
 		};
+		3FAE4E721C7DCE15001AE429 /* DateUTC */ = {
+			isa = PBXGroup;
+			children = (
+				3FAE4E731C7DCE63001AE429 /* UNIXEpochDate.h */,
+				3FAE4E741C7DCE63001AE429 /* UNIXEpochDate.m */,
+			);
+			name = DateUTC;
+			sourceTree = "<group>";
+		};
+		3FAE4E791C7DFB0F001AE429 /* ReviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3FAE4E7E1C7E0177001AE429 /* Sub Table */,
+				3FAE4E7D1C7E0139001AE429 /* SubReviewCell */,
+				3FAE4E7A1C7DFB40001AE429 /* ReviewTableViewCell.h */,
+				3FAE4E7B1C7DFB40001AE429 /* ReviewTableViewCell.m */,
+			);
+			name = ReviewCell;
+			sourceTree = "<group>";
+		};
+		3FAE4E7D1C7E0139001AE429 /* SubReviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3FAE4E851C7E0235001AE429 /* SubReviewTableCell.h */,
+				3FAE4E861C7E0235001AE429 /* SubReviewTableCell.m */,
+			);
+			name = SubReviewCell;
+			sourceTree = "<group>";
+		};
+		3FAE4E7E1C7E0177001AE429 /* Sub Table */ = {
+			isa = PBXGroup;
+			children = (
+				3FAE4E7F1C7E01DA001AE429 /* UnpairedTableView.h */,
+				3FAE4E801C7E01DA001AE429 /* UnpairedTableView.m */,
+				3FAE4E821C7E01F6001AE429 /* PairedTableView.h */,
+				3FAE4E831C7E01F6001AE429 /* PairedTableView.m */,
+			);
+			name = "Sub Table";
+			sourceTree = "<group>";
+		};
 		3FB938AF1C7620220037A8A0 /* ConfigureRestKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,6 +641,10 @@
 				3FB938BA1C76225B0037A8A0 /* LoginRequest.m */,
 				3FD12F511C776B730075A0BE /* ForgotPasswordRequest.h */,
 				3FD12F521C776B730075A0BE /* ForgotPasswordRequest.m */,
+				3FE4727E1C7CA8BC0073B090 /* EvaluationHistoryRequest.h */,
+				3FE4727F1C7CA8BC0073B090 /* EvaluationHistoryRequest.m */,
+				3FAE4E761C7DD4ED001AE429 /* ActionPlanRequest.h */,
+				3FAE4E771C7DD4ED001AE429 /* ActionPlanRequest.m */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -747,11 +814,14 @@
 				3FCC97FB1C7B320D001CF775 /* SpinnerViewController.m in Sources */,
 				3FA0B88A1C734DEC00F130F3 /* CommentsEvaluationViewController.m in Sources */,
 				3FD870B81C724CB500ABE999 /* GeneralHeaderTableViewCell.m in Sources */,
+				3FAE4E751C7DCE63001AE429 /* UNIXEpochDate.m in Sources */,
 				3F5F56461C6A654500851DD4 /* EvaluationTableViewController.m in Sources */,
 				3FCC97FE1C7B5657001CF775 /* SalesTitleViewCell.m in Sources */,
+				3FAE4E781C7DD4ED001AE429 /* ActionPlanRequest.m in Sources */,
 				3FCC98061C7B6CA2001CF775 /* SalesNameTableViewCell.m in Sources */,
 				3FB938B81C76223B0037A8A0 /* Authentication.m in Sources */,
 				3F5F55E81C6A363000851DD4 /* ResetPasswordViewController.m in Sources */,
+				3FAE4E7C1C7DFB40001AE429 /* ReviewTableViewCell.m in Sources */,
 				3F5F55EC1C6A3F2600851DD4 /* SalesRepresentative.m in Sources */,
 				3F7596F51C68BC31005042B8 /* StartViewController.m in Sources */,
 				3FD12F4D1C7740150075A0BE /* Container.m in Sources */,
@@ -764,19 +834,23 @@
 				3F7596F21C68BC31005042B8 /* AppDelegate.m in Sources */,
 				3FA0B8A31C73739100F130F3 /* InformationViewController.m in Sources */,
 				3FB938B21C7620560037A8A0 /* RestKitConfiguration.m in Sources */,
+				3FAE4E811C7E01DA001AE429 /* UnpairedTableView.m in Sources */,
 				3F75973C1C69034F005042B8 /* LanguagePickerViewController.m in Sources */,
 				3FD870B51C723B5D00ABE999 /* CommentsTableViewCell.m in Sources */,
 				3FCC980B1C7B8B07001CF775 /* ObservationTableViewCell.m in Sources */,
-				3FE472801C7CA8BC0073B090 /* Evaluation.m in Sources */,
+				3FE472801C7CA8BC0073B090 /* EvaluationHistoryRequest.m in Sources */,
 				3FA0B88D1C73568900F130F3 /* DueDataViewController.m in Sources */,
 				3FA0B8911C736B0000F130F3 /* EmptyPointView.m in Sources */,
 				3FAE6A021C6BA50400AE878E /* CustomerInfoViewController.m in Sources */,
 				3FCC98011C7B683E001CF775 /* EmailTableViewCell.m in Sources */,
+				3FAE4E841C7E01F6001AE429 /* PairedTableView.m in Sources */,
 				3FC4FBC51C6CF62C00C54314 /* RaitingCategoriesTableViewCell.m in Sources */,
 				3F7596EF1C68BC31005042B8 /* main.m in Sources */,
 				3FC4FBC21C6CF29900C54314 /* RaitingCategoriesViewController.m in Sources */,
 				3FE472831C7CD2FC0073B090 /* EvaluationExistCell.m in Sources */,
+				3FAE4E871C7E0235001AE429 /* SubReviewTableCell.m in Sources */,
 				3FD12F531C776B730075A0BE /* ForgotPasswordRequest.m in Sources */,
+				3FAE4E711C7DCC5A001AE429 /* Evaluation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,10 +965,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SalesManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tranee.salesmanager.SalesManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -907,10 +978,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SalesManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tranee.salesmanager.SalesManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

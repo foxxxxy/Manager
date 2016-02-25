@@ -9,26 +9,32 @@
 #import "EvaluationTableViewController.h"
 #import "SalesTitleViewController.h"
 #import "SalesTitleViewCell.h"
-#import "EmailTableViewCell.h"
 #import "SalesNameTableViewCell.h"
-#import "RepresentativesViewController.h"
 #import "SalesRepresentative.h"
-#import "Evaluation.h"
+#import "EvaluationHistoryRequest.h"
 #import "EvaluationExistCell.h"
+#import "Container.h"
+#import "Evaluation.h"
+#import "SpinnerViewController.h"
+
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
 
 @interface EvaluationTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray* identifierCellList;
-
 @property (strong,nonatomic) UIPopoverPresentationController* salesTitlePopover;
 @property (strong, nonatomic) SalesTitleViewController *titlePopover;
 @property (strong, nonatomic) SalesTitleViewCell *titleCell;
-@property(strong, nonatomic) NSString *email;
-@property(strong, nonatomic) NSString *fullName;
 @property (strong, nonatomic) NSMutableArray *representativesList;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @property (nonatomic) BOOL isRepresentativeExist;
-@property (strong, nonatomic)NSMutableArray *evaluationList;
+@property (strong, nonatomic) NSMutableArray *evaluationList;
+@property (strong, nonatomic) SpinnerViewController *spinnerController;
+@property (strong, nonatomic) NSMutableArray *evaluationListFromServer;
 
 @end
 
@@ -69,10 +75,7 @@
 }
 
 - (IBAction)newEvaluationButtonPressed:(id)sender {
-    
-    if ([self checkSalesTitle]) {
         [self showCustomerInfoPopover];
-    };
 }
 
 -(void)showCustomerInfoPopover{
@@ -93,19 +96,6 @@
     self.salesTitlePopover = popController;
 }
 
--(BOOL)checkSalesTitle{
-    if(self.titleCell.titleSalesLabel.text == nil){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"Please enter the representative's title."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return NO;
-    }
-    return YES;
-}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *inidentifier = self.identifierCellList[indexPath.row];
     if ([inidentifier isEqualToString:@"ButtonCell"]) {
@@ -118,7 +108,7 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.identifierCellList.count;
 }
 
@@ -137,19 +127,53 @@
             ((SalesTitleViewCell *)cell).bottomRowImageView.hidden = YES;
         }
         if ([identifier isEqualToString:@"EvaluationCell"]){
-            Evaluation *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
+            EvaluationHistoryRequest *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
             [self changeStatusBackground:((EvaluationExistCell *)cell).statusImage :evaluation];
+            [((EvaluationExistCell *) cell).timeLabel setText:[self getEvaluationGeneratedDate:evaluation]];
         }
     }
     return cell;
 }
 
--(void)changeStatusBackground :(UIImageView*)statusImage : (Evaluation *) evaluation{
+-(void)changeStatusBackground :(UIImageView*)statusImage : (EvaluationHistoryRequest *) evaluation{
     if ([evaluation.status isEqualToString:@"DRAFT"]) {
-        [statusImage setImage:[UIImage imageNamed:@"status-background-draft.png"]];
+        UIImage *image = [UIImage imageNamed:@"status-background-draft.png"];
+        NSString *statusDraft = @"Draft";
+        CGPoint point = CGPointMake(0, 4);
+        [statusImage setImage:[EvaluationTableViewController drawText:statusDraft inImage:image atPoint:point rgbValue:0x00A5E3]];
     }else{
-        [statusImage setImage:[UIImage imageNamed:@"status-background-complete.png"]];
+        UIImage *image = [UIImage imageNamed:@"status-background-complete.png"];
+        NSString *statusDraft = @"Complete";
+        CGPoint point = CGPointMake(0, 4);
+        [statusImage setImage:[EvaluationTableViewController drawText:statusDraft inImage:image atPoint:point rgbValue:0xFFFFFF]];
     }
+}
+
+-(NSString *)getEvaluationGeneratedDate:(EvaluationHistoryRequest *) evaluation{
+    NSDate *evaluationTime = [[Container sharedInstance].unixData toDateUTCFormat:evaluation.dateUTC];
+    NSString *time = [[Container sharedInstance].unixData toStringUTCFormateDate:evaluationTime];
+    NSString *timeLabel = [NSString stringWithFormat:@"(Generated: %@)", time];
+    return timeLabel;
+}
+
+
++(UIImage*) drawText:(NSString*) text inImage:(UIImage*)  image atPoint:(CGPoint) point rgbValue: (int)rgbValueF
+{
+    UIFont *font = [UIFont systemFontOfSize:13];
+    UIGraphicsBeginImageContext(image.size);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{ NSFontAttributeName: font,
+                                  NSParagraphStyleAttributeName: paragraphStyle,
+                                  NSForegroundColorAttributeName: UIColorFromRGB(rgbValueF)};
+    [text drawInRect:CGRectIntegral(rect) withAttributes:attributes];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -177,6 +201,11 @@
             self.salesTitlePopover = popController;
         }
     }
+    if ([identifier isEqualToString:@"EvaluationCell"]){
+        [self showSpinner];
+        EvaluationHistoryRequest *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
+        [self downloadEvaluation:evaluation.evaluationId];
+    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -191,6 +220,51 @@
 
 -(void)popoverItemSelected:(NSString *)selectedItem{
     self.titleCell.titleSalesLabel.text = selectedItem;
+}
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showRepresentativesHistory"])
+//    {
+//        _isRepresentativExist = YES;
+//        NSIndexPath *indexPath = [self.representativesTableView indexPathForSelectedRow];
+//        
+//        if(indexPath){
+//            [segue.destinationViewController setRepresentativesList:_representativesList:indexPath];
+//            [segue.destinationViewController setRepresentativExist:_isRepresentativExist];
+//            [segue.destinationViewController setEvaluationList:_evaluationListFromServer];
+//        }
+//    }
+//}
+
+-(void)downloadEvaluation:(NSInteger) evaluationURL{
+    self.evaluationListFromServer = [[NSMutableArray alloc] init];
+    [[Container sharedInstance].restConfiguration getEvaluation:evaluationURL :^(NSMutableArray *evaluationList){
+        self.evaluationListFromServer = evaluationList;
+        [self stopSpinner:^(){
+            [self performSegueWithIdentifier:@"showEvaluationReview" sender:self];
+        }];
+    }];
+}
+
+-(void)showSpinner{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"Spinner"];
+    
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    self.spinnerController = (SpinnerViewController *) controller;
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = 0;
+    popController.delegate = self;
+    popController.sourceView = self.view;
+    
+    CGRect parent = self.view.frame;
+    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 0, 0);
+}
+
+-(void)stopSpinner:(void(^)())dismissed{
+    [self.spinnerController dismissViewControllerAnimated:YES completion:^(){dismissed();}];
 }
 
 @end

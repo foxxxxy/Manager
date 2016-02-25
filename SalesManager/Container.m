@@ -28,4 +28,11 @@
     return _restConfiguration;
 }
 
+-(UNIXEpochDate *) unixData{
+    if (_unixData == nil) {
+        _unixData = [[UNIXEpochDate alloc] init];
+    }
+    return _unixData;
+}
+
 @end

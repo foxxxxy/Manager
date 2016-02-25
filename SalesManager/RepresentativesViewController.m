@@ -12,14 +12,15 @@
 #import "Container.h"
 #import "SpinnerViewController.h"
 #import "EvaluationTableViewController.h"
-#import "Evaluation.h"
+#import "EvaluationHistoryRequest.h"
+
 
 @interface RepresentativesViewController ()
 
 @property (strong, nonatomic) NSMutableArray *representativesList;
 @property (strong, nonatomic) SpinnerViewController *spinnerController;
 @property (nonatomic) BOOL isRepresentativExist;
-@property (strong, nonatomic) NSMutableArray <Evaluation *> *evaluationListFromServer;
+@property (strong, nonatomic) NSMutableArray <EvaluationHistoryRequest *> *evaluationListFromServer;
 
 @end
 
@@ -27,9 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[Container sharedInstance].restConfiguration configureRestKit];
-    
+
     _isRepresentativExist = NO;
 }
 
@@ -122,7 +121,7 @@
 
 -(void)downloadEvaluationHistory:(NSInteger) representativeURL{
     self.evaluationListFromServer = [[NSMutableArray alloc] init];
-    [[Container sharedInstance].restConfiguration getEvaluation:representativeURL :^(NSMutableArray * getEvaluationList){
+    [[Container sharedInstance].restConfiguration getEvaluationHistory:representativeURL :^(NSMutableArray * getEvaluationList){
         self.evaluationListFromServer = getEvaluationList;
         [self stopSpinner:^(){
             [self performSegueWithIdentifier:@"showRepresentativesHistory" sender:self];

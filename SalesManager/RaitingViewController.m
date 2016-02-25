@@ -15,6 +15,7 @@
 @property (strong,nonatomic) UIPopoverPresentationController* salesTitlePopover;
 @property (strong, nonatomic) NSMutableArray* identifierCellList;
 @property (strong, nonatomic) NSArray* identifierBottomCellList;
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
 @end
 
@@ -22,16 +23,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *raiting = @[@"RaitingCell", @"RaitingCell", @"RaitingCell", @"RaitingCell"];
 
-    self.identifierCellList = [NSMutableArray array];
+    self.identifierCellList = [[NSMutableArray alloc] init];
     self.identifierBottomCellList = @[@"ObservationCell", @"DevelopmentalActionCell", @"DueDataCell"];
     //@"SubRaitingCell"
-    for (NSString *iterator in raiting) {
-        [self.identifierCellList addObject:iterator];
-    }
+    
+    [self addRaitingTableCell:_currentIndexPath];
     [self.identifierCellList addObjectsFromArray:@[@"CommentHeaderCell", @"CommentCell"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOrHideCommentRows:) name:@"addBottomRows" object:nil];
+}
+
+-(void)addRaitingTableCell: (NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:
+            [self addCellToIdentifierCellList:4];
+            break;
+        case 1:
+            [self addCellToIdentifierCellList:6];
+            break;
+        case 2:
+            [self addCellToIdentifierCellList:2];
+            break;
+        case 3:
+            NSLog(@"Are you alive? %d", indexPath.row);
+            [self addCellToIdentifierCellList:6];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)addCellToIdentifierCellList: (NSInteger)count{
+    for(int i = 0; i < count; i++){
+        [self.identifierCellList addObject:@"RaitingCell"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,6 +66,10 @@
 
 - (IBAction)backButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)setCurrentIndex:indexPath{
+    _currentIndexPath = indexPath;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -130,7 +159,7 @@
 -(void) showOrHideCommentRows: (NSNotification*) notification {
     NSNumber *subMenuAction = [notification.userInfo objectForKey:@"subMenuAction"];
     NSInteger subMenuActionIndex = [subMenuAction intValue];
-
+    
     NSInteger rowIndex =  [self.raitingTableView indexPathForCell:[notification.userInfo objectForKey:@"cell"]].row;
     
     switch (subMenuActionIndex) {
@@ -144,7 +173,7 @@
             break;
         default:
             break;
-    }    
+    }
 }
 
 -(void) addCellsIdentifierToTable:(NSInteger) rowIndex{

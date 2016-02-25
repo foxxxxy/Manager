@@ -2,30 +2,41 @@
 //  Evaluation.m
 //  SalesManager
 //
-//  Created by Student on 2/23/16.
+//  Created by Student on 2/24/16.
 //  Copyright © 2016 Student. All rights reserved.
 //
 
 #import "Evaluation.h"
+#import "ActionPlanRequest.h"
 
 @implementation Evaluation
 
-+(void)mappingToObject:(RKObjectManager *) objectManager{
++(void) mapToObjectManager:(RKObjectManager *)objectManager {
     
-    RKObjectMapping *evaluationMapping = [RKObjectMapping mappingForClass:[Evaluation class]];
-    [evaluationMapping addAttributeMappingsFromDictionary:@{@"id": @"evaluationId",
-                                                            @"representativeName": @"representativeName",
-                                                            @"dateUTC": @"dateUTC",
-                                                            @"status": @"status",
-                                                            @"customer": @"customerInfo"}];
+    RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[Evaluation class]];
+    [mapping addAttributeMappingsFromDictionary:@{ @"category" : @"categoryName",
+                                                   @"comment": @"comment"}];
+    
+    RKObjectMapping* childMapping = [RKObjectMapping mappingForClass:[ActionPlanRequest class]];
+    [childMapping addAttributeMappingsFromDictionary:@{ @"criteria" : @"criteriaName",
+                                                        @"observation" : @"observationAction",
+                                                        @"correctiveAction" : @"correctiveAction",
+                                                        @"dueDateUTC" : @"dueDateUTC",
+                                                        @"rating": @"rating"}];
     
     
-    RKResponseDescriptor *responseEvaluationDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:evaluationMapping
-                                                                                                      method:RKRequestMethodGET
-                                                                                                 pathPattern:@"evaluation/history/:identity"
+    [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"actionPlans" toKeyPath:@"actionPlans" withMapping:childMapping]];
+    
+    [childMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"subActionPlans" toKeyPath:@"subActionPlans" withMapping:childMapping]];
+    
+    RKResponseDescriptor *responseEvaluationDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping
+                                                                                                      method:RKRequestMethodAny
+                                                                                                 pathPattern:@"evaluation/:identity"
                                                                                                      keyPath:@"result"
                                                                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [objectManager addResponseDescriptor:responseEvaluationDescriptor];
+    
+    [objectManager addResponseDescriptor: responseEvaluationDescriptor];
 }
+
 
 @end

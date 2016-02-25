@@ -16,6 +16,8 @@
 #import "Container.h"
 #import "Evaluation.h"
 #import "SpinnerViewController.h"
+#import "CustomerInfoViewController.h"
+#import "ReviewViewController.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -75,13 +77,14 @@ alpha:1.0]
 }
 
 - (IBAction)newEvaluationButtonPressed:(id)sender {
-        [self showCustomerInfoPopover];
+    [self showCustomerInfoPopover];
 }
 
 -(void)showCustomerInfoPopover{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
+    CustomerInfoViewController *controller = (CustomerInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
     
+    controller.delegate = self;
     controller.modalPresentationStyle = UIModalPresentationPopover;
     [self presentViewController:controller animated:YES completion:nil];
     
@@ -222,25 +225,19 @@ alpha:1.0]
     self.titleCell.titleSalesLabel.text = selectedItem;
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"showRepresentativesHistory"])
-//    {
-//        _isRepresentativExist = YES;
-//        NSIndexPath *indexPath = [self.representativesTableView indexPathForSelectedRow];
-//        
-//        if(indexPath){
-//            [segue.destinationViewController setRepresentativesList:_representativesList:indexPath];
-//            [segue.destinationViewController setRepresentativExist:_isRepresentativExist];
-//            [segue.destinationViewController setEvaluationList:_evaluationListFromServer];
-//        }
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showEvaluationReview"])
+    {
+        [segue.destinationViewController setEvaluationFullList:_evaluationListFromServer];
+    }
+}
+
 
 -(void)downloadEvaluation:(NSInteger) evaluationURL{
     self.evaluationListFromServer = [[NSMutableArray alloc] init];
-    [[Container sharedInstance].restConfiguration getEvaluation:evaluationURL :^(NSMutableArray *evaluationList){
-        self.evaluationListFromServer = evaluationList;
+    [[Container sharedInstance].restConfiguration getEvaluation:evaluationURL :^(NSMutableArray *evaluationFullList){
+        self.evaluationListFromServer = evaluationFullList;
         [self stopSpinner:^(){
             [self performSegueWithIdentifier:@"showEvaluationReview" sender:self];
         }];
@@ -265,6 +262,16 @@ alpha:1.0]
 
 -(void)stopSpinner:(void(^)())dismissed{
     [self.spinnerController dismissViewControllerAnimated:YES completion:^(){dismissed();}];
+}
+
+- (void)save:(NSString *)text {
+    NSLog(@"SAVE:\n%@", text);
+    [self performSegueWithIdentifier:@"showRaitingCategories" sender:self];
+}
+
+- (void)skip {
+    NSLog(@"Skip");
+    [self performSegueWithIdentifier:@"showRaitingCategories" sender:self];
 }
 
 @end

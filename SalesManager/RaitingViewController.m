@@ -45,7 +45,6 @@
             [self addCellToIdentifierCellList:2];
             break;
         case 3:
-            NSLog(@"Are you alive? %d", indexPath.row);
             [self addCellToIdentifierCellList:6];
             break;
         default:

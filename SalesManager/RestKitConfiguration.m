@@ -19,8 +19,8 @@
 @implementation RestKitConfiguration
 
 - (void)configureRestKit{
-    //    RKLogConfigureByName("RestKit/Request", RKLogLevelTrace);
-    //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
+//        RKLogConfigureByName("RestKit/Request", RKLogLevelTrace);
+//        RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
     
     NSURL *baseURL = [NSURL URLWithString:@"http://52.91.82.122:80/api"];
     AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
@@ -45,7 +45,7 @@
     
     
     [Authentication mappingToObject:objectManager :loginRequestMapping :loginResponseMapping];
-    [ForgotPasswordRequest mappingToObject:objectManager :loginResponseMapping];
+//    [ForgotPasswordRequest mappingToObject:objectManager :loginResponseMapping];
     [SalesRepresentative mappingToObject:objectManager];
     [EvaluationHistoryRequest mappingToObject:objectManager];
     [Evaluation mapToObjectManager:objectManager];
@@ -135,12 +135,11 @@
                                               }];
 }
 
--(void) getEvaluation:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList{
+-(void) getEvaluation:(NSInteger) identity : (void(^)(NSMutableArray *))getEvaluationList{    
     NSString *identityUrl = [NSString stringWithFormat:@"%@%d", @"evaluation/", identity];
     [[RKObjectManager sharedManager] getObjectsAtPath:identityUrl parameters:nil
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *result){
                                                   getEvaluationList((NSMutableArray *)result.array);
-                                                  NSLog(@"result.array[0] %@", result.array[0]);
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error){
                                                   NSLog(@"%@", error.localizedDescription);

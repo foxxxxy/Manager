@@ -55,35 +55,30 @@
     }
     EmptyPointView *pointView = (EmptyPointView *)gestureRecognizer.view;
         NSInteger index = [self.pointViewCollection indexOfObject:pointView];
+                pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
     switch (index) {
         case 0:
             pointView.pointImage.image = [UIImage imageNamed:@"gray-point.png"];
-            pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
             break;
         case 1:
             pointView.pointImage.image = [UIImage imageNamed:@"red-point.png"];
             pointView.pointLabel.textColor = [UIColor redColor];
-            pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
             break;
         case 2:
             pointView.pointImage.image = [UIImage imageNamed:@"red-point.png"];
             pointView.pointLabel.textColor = [UIColor redColor];
-            pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
             break;
         case 3:
             pointView.pointImage.image = [UIImage imageNamed:@"orange-point.png"];
             pointView.pointLabel.textColor = [UIColor orangeColor];
-            pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
             break;
         case 4:
             pointView.pointImage.image = [UIImage imageNamed:@"green-point.png"];
             pointView.pointLabel.textColor = UIColorFromRGB(0x5D8C17);
-            pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
             break;
         case 5:
             pointView.pointImage.image = [UIImage imageNamed:@"green-point.png"];
             pointView.pointLabel.textColor = UIColorFromRGB(0x5D8C17);
-            pointView.pointLabel.font = [pointView.pointLabel.font fontWithSize:15.0];
             break;
         default:
             break;

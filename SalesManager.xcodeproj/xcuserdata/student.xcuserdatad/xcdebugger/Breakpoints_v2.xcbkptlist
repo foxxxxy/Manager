@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SalesManager/RaitingTableViewCell.m"
-            timestampString = "477420598.214678"
+            timestampString = "478116507.449774"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "-pointTaped:"
             landmarkType = "5">
          </BreakpointContent>

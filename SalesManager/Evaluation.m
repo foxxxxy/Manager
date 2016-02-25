@@ -14,28 +14,23 @@
 +(void) mapToObjectManager:(RKObjectManager *)objectManager {
     
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[Evaluation class]];
-    [mapping addAttributeMappingsFromDictionary:@{ @"category" : @"categoryName",
+    [mapping addAttributeMappingsFromDictionary:@{ @"category" : @"category",
                                                    @"comment": @"comment"}];
     
     RKObjectMapping* childMapping = [RKObjectMapping mappingForClass:[ActionPlanRequest class]];
-    [childMapping addAttributeMappingsFromDictionary:@{ @"criteria" : @"criteriaName",
-                                                        @"observation" : @"observationAction",
-                                                        @"correctiveAction" : @"correctiveAction",
-                                                        @"dueDateUTC" : @"dueDateUTC",
-                                                        @"rating": @"rating"}];
-    
+    [childMapping addAttributeMappingsFromDictionary:@{ @"criteria" : @"criteria",
+                                                        @"rating": @"rating",
+                                                        @"dueDateUTC" : @"dueDateUTC"}];
     
     [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"actionPlans" toKeyPath:@"actionPlans" withMapping:childMapping]];
     
     [childMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"subActionPlans" toKeyPath:@"subActionPlans" withMapping:childMapping]];
     
-    RKResponseDescriptor *responseEvaluationDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:mapping
-                                                                                                      method:RKRequestMethodAny
-                                                                                                 pathPattern:@"evaluation/:identity"
-                                                                                                     keyPath:@"result"
-                                                                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    
-    [objectManager addResponseDescriptor: responseEvaluationDescriptor];
+    [objectManager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:mapping
+                                                                                       method:RKRequestMethodAny
+                                                                                  pathPattern:@"evaluation/:identity"
+                                                                                      keyPath:@"result"
+                                                                                  statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
 }
 
 

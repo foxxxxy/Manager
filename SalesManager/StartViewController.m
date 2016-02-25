@@ -48,7 +48,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.loginTextField.text = @"adammanager@company.com";
-    self.passwordTextField.text = @"";
+    self.passwordTextField.text = @"123";
 }
 
 - (IBAction)loginButtonPressed:(id)sender {

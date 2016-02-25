@@ -8,18 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "UnpairedTableView.h"
+#import "Evaluation.h"
 
 @interface ReviewTableViewCell : UITableViewCell <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UILabel *reviewLabel;
 @property (strong, nonatomic) IBOutlet UITableView *unpairedCategoryTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pairCategoryTableView;
-
 @property (strong, nonatomic) IBOutletCollection(UITableView) NSArray *categoriesTables;
 
-- (IBAction)infoButtonPressed:(id)sender;
-
-@property (strong, nonatomic) NSMutableArray *subCategotiesLabelList;
-@property (strong, nonatomic) NSMutableArray *subIdentifierCellList;
+@property (strong, nonatomic) NSMutableArray *subLabelList;
+@property (strong, nonatomic) Evaluation *currentEvaluation;
 
 @end

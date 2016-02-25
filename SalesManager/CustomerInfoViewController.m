@@ -64,4 +64,18 @@
 }
 
 
+- (IBAction)skipButtonPressed:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(skip)]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [_delegate skip];
+        
+    }
+}
+
+- (IBAction)saveButtonPressed:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(save:)]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [_delegate save:_customerInfoTextView.text];
+    }
+}
 @end

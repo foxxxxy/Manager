@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomerInfoViewControllerDelegate.h"
 
 @interface CustomerInfoViewController : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *customerInfoTextView;
+
+@property (weak, nonatomic) id <CustomerInfoViewControllerDelegate> delegate;
+- (IBAction)skipButtonPressed:(id)sender;
+
+- (IBAction)saveButtonPressed:(id)sender;
 
 @end

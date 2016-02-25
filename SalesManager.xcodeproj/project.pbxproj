@@ -81,6 +81,7 @@
 		3FB938B21C7620560037A8A0 /* RestKitConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB938B11C7620560037A8A0 /* RestKitConfiguration.m */; };
 		3FB938B81C76223B0037A8A0 /* Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB938B71C76223B0037A8A0 /* Authentication.m */; };
 		3FB938BB1C76225B0037A8A0 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB938BA1C76225B0037A8A0 /* LoginRequest.m */; };
+		3FBCABD61C7F7BBE000DB102 /* CategoriesInformationPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBCABD51C7F7BBE000DB102 /* CategoriesInformationPopup.m */; };
 		3FC426F41C74F7CA00375956 /* InformationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC426F31C74F7CA00375956 /* InformationViewCell.m */; };
 		3FC4FBC21C6CF29900C54314 /* RaitingCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4FBC11C6CF29900C54314 /* RaitingCategoriesViewController.m */; };
 		3FC4FBC51C6CF62C00C54314 /* RaitingCategoriesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4FBC41C6CF62C00C54314 /* RaitingCategoriesTableViewCell.m */; };
@@ -204,6 +205,9 @@
 		3FB938B71C76223B0037A8A0 /* Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authentication.m; sourceTree = "<group>"; };
 		3FB938B91C76225B0037A8A0 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
 		3FB938BA1C76225B0037A8A0 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
+		3FBCABD31C7F0824000DB102 /* CustomerInfoViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerInfoViewControllerDelegate.h; sourceTree = "<group>"; };
+		3FBCABD41C7F7BBE000DB102 /* CategoriesInformationPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesInformationPopup.h; sourceTree = "<group>"; };
+		3FBCABD51C7F7BBE000DB102 /* CategoriesInformationPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesInformationPopup.m; sourceTree = "<group>"; };
 		3FC426F21C74F7CA00375956 /* InformationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewCell.h; sourceTree = "<group>"; };
 		3FC426F31C74F7CA00375956 /* InformationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewCell.m; sourceTree = "<group>"; };
 		3FC4FBC01C6CF29900C54314 /* RaitingCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaitingCategoriesViewController.h; sourceTree = "<group>"; };
@@ -319,6 +323,8 @@
 				3FA0B8A21C73739100F130F3 /* InformationViewController.m */,
 				3FCC97F91C7B320D001CF775 /* SpinnerViewController.h */,
 				3FCC97FA1C7B320D001CF775 /* SpinnerViewController.m */,
+				3FBCABD41C7F7BBE000DB102 /* CategoriesInformationPopup.h */,
+				3FBCABD51C7F7BBE000DB102 /* CategoriesInformationPopup.m */,
 			);
 			name = Popovers;
 			sourceTree = "<group>";
@@ -577,6 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				3FCC97F81C7B25F2001CF775 /* PopoverSelectionDelegate.h */,
+				3FBCABD31C7F0824000DB102 /* CustomerInfoViewControllerDelegate.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -816,6 +823,7 @@
 				3FD870B81C724CB500ABE999 /* GeneralHeaderTableViewCell.m in Sources */,
 				3FAE4E751C7DCE63001AE429 /* UNIXEpochDate.m in Sources */,
 				3F5F56461C6A654500851DD4 /* EvaluationTableViewController.m in Sources */,
+				3FBCABD61C7F7BBE000DB102 /* CategoriesInformationPopup.m in Sources */,
 				3FCC97FE1C7B5657001CF775 /* SalesTitleViewCell.m in Sources */,
 				3FAE4E781C7DD4ED001AE429 /* ActionPlanRequest.m in Sources */,
 				3FCC98061C7B6CA2001CF775 /* SalesNameTableViewCell.m in Sources */,

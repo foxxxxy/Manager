@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RaitingCategoriesTableViewCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UILabel *categoriesLabel;
 
 @end

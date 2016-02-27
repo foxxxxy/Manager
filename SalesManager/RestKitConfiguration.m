@@ -45,7 +45,7 @@
     
     
     [Authentication mappingToObject:objectManager :loginRequestMapping :loginResponseMapping];
-//    [ForgotPasswordRequest mappingToObject:objectManager :loginResponseMapping];
+    [ForgotPasswordRequest mappingToObject:objectManager :loginResponseMapping];
     [SalesRepresentative mappingToObject:objectManager];
     [EvaluationHistoryRequest mappingToObject:objectManager];
     [Evaluation mapToObjectManager:objectManager];

@@ -38,7 +38,6 @@ alpha:1.0]
 
 -(void)setCurrentEvaluation:(Evaluation *)currentEvaluation{
     _currentEvaluation = currentEvaluation;
-    NSLog(@"%@", [NSString stringWithFormat:@"%@ %@ %@", _currentEvaluation.category, _currentEvaluation.comment, _currentEvaluation.actionPlans]);
 }
 
 -(void)dividedTtwoColumns{
@@ -76,10 +75,15 @@ alpha:1.0]
 
 -(NSString *)raitingToString:(NSIndexPath *)indexPath cell :(UITableViewCell *) cell{
     NSInteger raiting = [[self.currentEvaluation.actionPlans objectAtIndex:indexPath.row] rating];
-    ((SubReviewTableCell *)cell).raitingLabel.font = [((SubReviewTableCell *)cell).raitingLabel.font fontWithSize:14.0f];
     if (raiting < 0) {
         return @"";
     }
+    [self styleRaitingLabel:cell withRaiting:raiting];
+    return [NSString stringWithFormat:@"%d", raiting];
+}
+
+-(void)styleRaitingLabel:(UITableViewCell *)cell withRaiting: (NSInteger) raiting{
+    ((SubReviewTableCell *)cell).raitingLabel.font = [((SubReviewTableCell *)cell).raitingLabel.font fontWithSize:14.0f];
     switch (raiting) {
         case 1:
             ((SubReviewTableCell *)cell).raitingLabel.textColor = [UIColor redColor];
@@ -100,7 +104,6 @@ alpha:1.0]
         default:
             break;
     }
-    
-    return [NSString stringWithFormat:@"%d", raiting];
 }
+
 @end

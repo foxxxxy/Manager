@@ -17,15 +17,18 @@
 typedef enum {
     SubMenuActionShow,
     SubMenuActionHide,
-    SubMenuActionNull
+    SubMenuActionNull,
+    SubMenuActionShowSubRaiting,
+    SubMenuActionHideSubRaiting
 }SubMenuAction ;
 
 @interface RaitingTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *raitingNameLabel;
 @property (strong, nonatomic) IBOutletCollection(EmptyPointView) NSArray *pointViewCollection;
-
+@property (nonatomic) BOOL isSubRaitingExist;
 
 -(void)setTapListeners;
+-(void)currentPointStyle:(NSInteger) index;
 
 @end

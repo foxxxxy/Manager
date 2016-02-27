@@ -12,7 +12,6 @@
 @interface StartViewController : UIViewController <UIPopoverPresentationControllerDelegate, PopoverSelectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
-
 @property (strong, nonatomic) IBOutlet UILabel *forgotPasswordLabel;
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;

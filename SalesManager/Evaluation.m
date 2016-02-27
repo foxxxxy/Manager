@@ -14,11 +14,13 @@
 +(void) mapToObjectManager:(RKObjectManager *)objectManager {
     
     RKObjectMapping* mapping = [RKObjectMapping mappingForClass:[Evaluation class]];
-    [mapping addAttributeMappingsFromDictionary:@{ @"category" : @"category",
+    [mapping addAttributeMappingsFromDictionary:@{ @"category" : @"categoryName",
                                                    @"comment": @"comment"}];
     
     RKObjectMapping* childMapping = [RKObjectMapping mappingForClass:[ActionPlanRequest class]];
-    [childMapping addAttributeMappingsFromDictionary:@{ @"criteria" : @"criteria",
+    [childMapping addAttributeMappingsFromDictionary:@{ @"criteria" : @"criteriaName",
+                                                        @"observationAction" : @"observationAction",
+                                                        @"correctiveAction" : @"correctiveAction",
                                                         @"rating": @"rating",
                                                         @"dueDateUTC" : @"dueDateUTC"}];
     

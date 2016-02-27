@@ -11,12 +11,11 @@
 
 @interface ActionPlanRequest : NSObject
 
-@property (nonatomic, strong) NSString *criteria;
-@property (nonatomic, strong) NSString *dueDateUTC;
+@property (strong, nonatomic) NSString *criteriaName;
+@property (strong, nonatomic) NSString *observationAction;
+@property (strong, nonatomic) NSString *correctiveAction;
+@property (strong, nonatomic) NSString *dueDateUTC;
 @property (nonatomic) NSInteger rating;
-@property (nonatomic, strong) NSArray *subActionPlans;
-
-
-
+@property (strong, nonatomic) NSMutableArray *subActionPlans;
 
 @end

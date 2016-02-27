@@ -82,6 +82,7 @@
 		3FB938B81C76223B0037A8A0 /* Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB938B71C76223B0037A8A0 /* Authentication.m */; };
 		3FB938BB1C76225B0037A8A0 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB938BA1C76225B0037A8A0 /* LoginRequest.m */; };
 		3FBCABD61C7F7BBE000DB102 /* CategoriesInformationPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBCABD51C7F7BBE000DB102 /* CategoriesInformationPopup.m */; };
+		3FC2B9A91C80676D007B166B /* AlertWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2B9A81C80676D007B166B /* AlertWindow.m */; };
 		3FC426F41C74F7CA00375956 /* InformationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC426F31C74F7CA00375956 /* InformationViewCell.m */; };
 		3FC4FBC21C6CF29900C54314 /* RaitingCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4FBC11C6CF29900C54314 /* RaitingCategoriesViewController.m */; };
 		3FC4FBC51C6CF62C00C54314 /* RaitingCategoriesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4FBC41C6CF62C00C54314 /* RaitingCategoriesTableViewCell.m */; };
@@ -208,6 +209,8 @@
 		3FBCABD31C7F0824000DB102 /* CustomerInfoViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerInfoViewControllerDelegate.h; sourceTree = "<group>"; };
 		3FBCABD41C7F7BBE000DB102 /* CategoriesInformationPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesInformationPopup.h; sourceTree = "<group>"; };
 		3FBCABD51C7F7BBE000DB102 /* CategoriesInformationPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesInformationPopup.m; sourceTree = "<group>"; };
+		3FC2B9A71C80676D007B166B /* AlertWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindow.h; sourceTree = "<group>"; };
+		3FC2B9A81C80676D007B166B /* AlertWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindow.m; sourceTree = "<group>"; };
 		3FC426F21C74F7CA00375956 /* InformationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewCell.h; sourceTree = "<group>"; };
 		3FC426F31C74F7CA00375956 /* InformationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewCell.m; sourceTree = "<group>"; };
 		3FC4FBC01C6CF29900C54314 /* RaitingCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaitingCategoriesViewController.h; sourceTree = "<group>"; };
@@ -293,12 +296,6 @@
 				3FCC98071C7B76CF001CF775 /* Raiting Cells */,
 				3FCC98031C7B6889001CF775 /* Evaluation Cells */,
 				3FCC98021C7B6848001CF775 /* Representatives Cells */,
-				3FD870B31C723B5D00ABE999 /* CommentsTableViewCell.h */,
-				3FD870B41C723B5D00ABE999 /* CommentsTableViewCell.m */,
-				3FD870B61C724CB500ABE999 /* GeneralHeaderTableViewCell.h */,
-				3FD870B71C724CB500ABE999 /* GeneralHeaderTableViewCell.m */,
-				3FC426F21C74F7CA00375956 /* InformationViewCell.h */,
-				3FC426F31C74F7CA00375956 /* InformationViewCell.m */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
@@ -478,6 +475,7 @@
 			children = (
 				3FA0B88E1C736ADC00F130F3 /* Points */,
 				3F5F55E51C6A360B00851DD4 /* Popovers */,
+				3FC2B9AA1C806943007B166B /* AlertView */,
 				3F5F55DF1C6A14ED00851DD4 /* Table Cells */,
 				3F7596F31C68BC31005042B8 /* StartViewController.h */,
 				3F7596F41C68BC31005042B8 /* StartViewController.m */,
@@ -579,6 +577,15 @@
 			name = ConfigureRestKit;
 			sourceTree = "<group>";
 		};
+		3FC2B9AA1C806943007B166B /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				3FC2B9A71C80676D007B166B /* AlertWindow.h */,
+				3FC2B9A81C80676D007B166B /* AlertWindow.m */,
+			);
+			name = AlertView;
+			sourceTree = "<group>";
+		};
 		3FCC97F71C7B25BB001CF775 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,6 +635,12 @@
 				3FD870B11C7225F000ABE999 /* RaitingTableViewCell.m */,
 				3FCC98091C7B8B07001CF775 /* ObservationTableViewCell.h */,
 				3FCC980A1C7B8B07001CF775 /* ObservationTableViewCell.m */,
+				3FD870B31C723B5D00ABE999 /* CommentsTableViewCell.h */,
+				3FD870B41C723B5D00ABE999 /* CommentsTableViewCell.m */,
+				3FD870B61C724CB500ABE999 /* GeneralHeaderTableViewCell.h */,
+				3FD870B71C724CB500ABE999 /* GeneralHeaderTableViewCell.m */,
+				3FC426F21C74F7CA00375956 /* InformationViewCell.h */,
+				3FC426F31C74F7CA00375956 /* InformationViewCell.m */,
 			);
 			name = "Raiting General Cells";
 			sourceTree = "<group>";
@@ -848,6 +861,7 @@
 				3FCC980B1C7B8B07001CF775 /* ObservationTableViewCell.m in Sources */,
 				3FE472801C7CA8BC0073B090 /* EvaluationHistoryRequest.m in Sources */,
 				3FA0B88D1C73568900F130F3 /* DueDataViewController.m in Sources */,
+				3FC2B9A91C80676D007B166B /* AlertWindow.m in Sources */,
 				3FA0B8911C736B0000F130F3 /* EmptyPointView.m in Sources */,
 				3FAE6A021C6BA50400AE878E /* CustomerInfoViewController.m in Sources */,
 				3FCC98011C7B683E001CF775 /* EmailTableViewCell.m in Sources */,

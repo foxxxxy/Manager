@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *unpairedCategoryTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pairCategoryTableView;
 @property (strong, nonatomic) IBOutletCollection(UITableView) NSArray *categoriesTables;
+@property (strong, nonatomic) IBOutlet UIButton *infoButton;
 
 @property (strong, nonatomic) NSMutableArray *subLabelList;
 @property (strong, nonatomic) Evaluation *currentEvaluation;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SubReviewTableCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UILabel *categoryNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *raitingLabel;
 

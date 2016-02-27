@@ -10,6 +10,7 @@
 
 @interface CategoriesInformationPopup : UIViewController
 
-@property (strong, nonatomic) IBOutlet UILabel *informationLabel;
+@property (strong, nonatomic) IBOutlet UITextView *informationTextView;
+@property (nonatomic) NSInteger buttonIndex;
 
 @end

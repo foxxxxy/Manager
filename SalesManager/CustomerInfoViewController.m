@@ -23,13 +23,27 @@
     // Do any additional setup after loading the view.
     
     
-    CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, self.customerInfoTextView.frame.size.height - 1, self.customerInfoTextView.frame.size.width, 1.0f);
-    bottomBorder.backgroundColor = [UIColor redColor].CGColor;
-    [self.customerInfoTextView.layer addSublayer:bottomBorder];
-    
+    [self addBottomBorder];
+    [self addPlaceholderLabelToTextView];
     self.preferredContentSize = CGSizeMake(550, 550);
-    
+}
+
+- (IBAction)skipButtonPressed:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(skip)]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [_delegate skip];
+        
+    }
+}
+
+- (IBAction)saveButtonPressed:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(save:)]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [_delegate save:_customerInfoTextView.text];
+    }
+}
+
+-(void)addPlaceholderLabelToTextView{
     _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0,self.customerInfoTextView.frame.size.width - 10.0, 34.0)];
     
     
@@ -41,16 +55,11 @@
     [self.customerInfoTextView addSubview:_placeholderLabel];
 }
 
-- (IBAction)save:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(save:)]) {
-        [_delegate save:_customerInfoTextView.text];
-    }
-}
-
-- (IBAction)skip:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(skip)]) {
-        [_delegate skip];
-    }
+-(void)addBottomBorder{
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, self.customerInfoTextView.frame.size.height - 1, self.customerInfoTextView.frame.size.width, 1.0f);
+    bottomBorder.backgroundColor = [UIColor redColor].CGColor;
+    [self.customerInfoTextView.layer addSublayer:bottomBorder];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -73,21 +82,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-
-- (IBAction)skipButtonPressed:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(skip)]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [_delegate skip];
-        
-    }
-}
-
-- (IBAction)saveButtonPressed:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(save:)]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [_delegate save:_customerInfoTextView.text];
-    }
 }
 @end

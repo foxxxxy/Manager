@@ -12,6 +12,7 @@
 #import "RepresentativesViewController.h"
 #import "LanguagePickerViewController.h"
 #import "SpinnerViewController.h"
+#import "AlertWindow.h"
 
 @interface StartViewController ()
 
@@ -31,13 +32,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self addTapRecognizerForgotPasswordLabel];
+    
+    self.loginRequest = [[LoginRequest alloc] init];
+    [[Container sharedInstance].restConfiguration configureRestKit];
+}
+
+-(void)addTapRecognizerForgotPasswordLabel{
     self.forgotPasswordLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetPassword)];
     [self.forgotPasswordLabel addGestureRecognizer:tapGestureRecognizer];
-    
-    [[Container sharedInstance].restConfiguration configureRestKit];
-    
-    self.loginRequest = [[LoginRequest alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,12 +90,7 @@
         }else if(!isLoginSuccessful){
             self.isSegueAccess = NO;
             [self stopSpinner:^(){}];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"Invalid username or password"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            [AlertWindow showInfoErrorWindow:self info:@"Invalid username or password"];
         }
     }];
 }
@@ -172,7 +171,6 @@
 }
 
 -(void)popoverItemSelected:(NSString *)selectedItem{
-    NSLog(@"%@ selectedItem", selectedItem);
     [self.languageChangeButton setTitle:selectedItem forState:UIControlStateNormal];
 }
 @end

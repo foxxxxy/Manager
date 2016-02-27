@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *commentsTextView;
 @property (strong, nonatomic) NSString *evaluationComment;
+
 - (IBAction)saveButtonPressed:(id)sender;
 - (IBAction)clearButtonPressed:(id)sender;
 

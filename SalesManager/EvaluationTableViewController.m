@@ -27,13 +27,13 @@ alpha:1.0]
 
 @interface EvaluationTableViewController ()
 
+@property (nonatomic) BOOL isRepresentativeExist;
 @property (strong, nonatomic) NSMutableArray* identifierCellList;
 @property (strong,nonatomic) UIPopoverPresentationController* salesTitlePopover;
 @property (strong, nonatomic) SalesTitleViewController *titlePopover;
 @property (strong, nonatomic) SalesTitleViewCell *titleCell;
 @property (strong, nonatomic) NSMutableArray *representativesList;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
-@property (nonatomic) BOOL isRepresentativeExist;
 @property (strong, nonatomic) NSMutableArray *evaluationList;
 @property (strong, nonatomic) SpinnerViewController *spinnerController;
 @property (strong, nonatomic) NSMutableArray *evaluationListFromServer;
@@ -46,6 +46,10 @@ alpha:1.0]
     [super viewDidLoad];
     self.identifierCellList = [[NSMutableArray alloc] initWithObjects:@"HeaderCell", @"NameCell", @"TitleCell", @"EmailCell", @"ButtonCell", @"HeaderHistoryCell", nil];
     
+    [self showEvaluationCells];
+}
+
+-(void)showEvaluationCells{
     if (_isRepresentativeExist) {
         [self.identifierCellList removeObject:@"EmailCell"];
         for (int i= 0; i<self.evaluationList.count; i++) {
@@ -80,24 +84,6 @@ alpha:1.0]
     [self showCustomerInfoPopover];
 }
 
--(void)showCustomerInfoPopover{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    CustomerInfoViewController *controller = (CustomerInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
-    
-    controller.delegate = self;
-    controller.modalPresentationStyle = UIModalPresentationPopover;
-    [self presentViewController:controller animated:YES completion:nil];
-    
-    UIPopoverPresentationController *popController = [controller popoverPresentationController];
-    popController.permittedArrowDirections = 0;
-    popController.delegate = self;
-    popController.sourceView = self.view;
-    
-    CGRect parent = self.view.frame;
-    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 0, 0);
-    
-    self.salesTitlePopover = popController;
-}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *inidentifier = self.identifierCellList[indexPath.row];
@@ -121,21 +107,46 @@ alpha:1.0]
     if (_isRepresentativeExist) {
         SalesRepresentative *representative = [_representativesList objectAtIndex:_currentIndexPath.row];
         if ([identifier isEqualToString:@"NameCell"]){
-            [((SalesNameTableViewCell *)cell).fullNameTextView setUserInteractionEnabled:NO];
-            ((SalesNameTableViewCell *)cell).fullNameTextView.text = representative.name;
-            
+            [self showRepresentativeName:cell representative:representative];
         }
         if ([identifier isEqualToString:@"TitleCell"]){
-            [((SalesTitleViewCell *)cell).titleSalesLabel setText:representative.title];
-            ((SalesTitleViewCell *)cell).bottomRowImageView.hidden = YES;
+            [self showRepresentativeTitle:cell representative:representative];
         }
         if ([identifier isEqualToString:@"EvaluationCell"]){
-            EvaluationHistoryRequest *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
-            [self changeStatusBackground:((EvaluationExistCell *)cell).statusImage :evaluation];
-            [((EvaluationExistCell *) cell).timeLabel setText:[self getEvaluationGeneratedDate:evaluation]];
+            [self showEvaluationList:indexPath tableCell:cell];
         }
     }
     return cell;
+}
+
+-(void)showRepresentativeName:(UITableViewCell *)cell representative : (SalesRepresentative *) representative{
+    [((SalesNameTableViewCell *)cell).fullNameTextView setUserInteractionEnabled:NO];
+    ((SalesNameTableViewCell *)cell).fullNameTextView.text = representative.name;
+}
+
+-(void)showRepresentativeTitle:(UITableViewCell *)cell representative : (SalesRepresentative *) representative{
+    [((SalesTitleViewCell *)cell).titleSalesLabel setText:[self showStringTitle:representative]];
+    ((SalesTitleViewCell *)cell).bottomRowImageView.hidden = YES;
+}
+
+-(void)showEvaluationList:(NSIndexPath *)indexPath tableCell: (UITableViewCell *)cell{
+    EvaluationHistoryRequest *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
+    [self changeStatusBackground:((EvaluationExistCell *)cell).statusImage :evaluation];
+    [((EvaluationExistCell *) cell).timeLabel setText:[self getEvaluationGeneratedDate:evaluation]];
+}
+
+-(NSString *)showStringTitle:(SalesRepresentative *)representative{
+    NSString *stringTitle;
+    if ([representative.title isEqualToString:@"SENIOR_SALES_REP"]) {
+        stringTitle = @"Senior Sales Rep";
+    }
+    if ([representative.title isEqualToString:@"SALES_REP"]) {
+        stringTitle = @"Sales Rep";
+    }
+    if ([representative.title isEqualToString:@"KEY_ACCOUNT_MANAGER"]) {
+        stringTitle = @"Key Account Manager";
+    }
+    return stringTitle;
 }
 
 -(void)changeStatusBackground :(UIImageView*)statusImage : (EvaluationHistoryRequest *) evaluation{
@@ -185,30 +196,38 @@ alpha:1.0]
     self.titleCell = [tableView cellForRowAtIndexPath:indexPath];
     if (!_isRepresentativeExist) {
         if ([identifier isEqualToString:@"TitleCell"]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ChoosingTitlePopover"];
-            
-            self.titlePopover = (SalesTitleViewController *)controller;
-            ((SalesTitleViewController *)controller).delegatePopover = self;
-            
-            controller.modalPresentationStyle = UIModalPresentationPopover;
-            [self presentViewController:controller animated:YES completion:nil];
-            
-            UIPopoverPresentationController *popController = [controller popoverPresentationController];
-            popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
-            popController.delegate = self;
-            popController.sourceView = self.view;
-            
-            CGRect parent = self.view.frame;
-            popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/10, 10, 10);
-            self.salesTitlePopover = popController;
+            [self showChoosingTitlePopover];
         }
     }
     if ([identifier isEqualToString:@"EvaluationCell"]){
-        [self showSpinner];
-        EvaluationHistoryRequest *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
-        [self downloadEvaluation:evaluation.evaluationId];
+        [self didSelectEvaluationCells:indexPath];
     }
+}
+
+-(void)showChoosingTitlePopover{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ChoosingTitlePopover"];
+    
+    self.titlePopover = (SalesTitleViewController *)controller;
+    ((SalesTitleViewController *)controller).delegatePopover = self;
+    
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    popController.delegate = self;
+    popController.sourceView = self.view;
+    
+    CGRect parent = self.view.frame;
+    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/10, 10, 10);
+    self.salesTitlePopover = popController;
+}
+
+-(void)didSelectEvaluationCells:(NSIndexPath *) indexPath{
+    [self showSpinner];
+    EvaluationHistoryRequest *evaluation = [self.evaluationList objectAtIndex:indexPath.row-self.identifierCellList.count+self.evaluationList.count];
+    [self downloadEvaluation:evaluation.evaluationId];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -264,20 +283,31 @@ alpha:1.0]
     [self.spinnerController dismissViewControllerAnimated:YES completion:^(){dismissed();}];
 }
 
+-(void)showCustomerInfoPopover{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    CustomerInfoViewController *controller = (CustomerInfoViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CustomerInfoPopover"];
+    
+    controller.delegate = self;
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = 0;
+    popController.delegate = self;
+    popController.sourceView = self.view;
+    
+    CGRect parent = self.view.frame;
+    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 0, 0);
+    
+    self.salesTitlePopover = popController;
+}
+
 - (void)save:(NSString *)text {
-    NSLog(@"SAVE:\n%@", text);
-<<<<<<< HEAD
     [self performSegueWithIdentifier:@"showRaitingCategories" sender:self];
-=======
->>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
 }
 
 - (void)skip {
-    NSLog(@"Skip");
-<<<<<<< HEAD
     [self performSegueWithIdentifier:@"showRaitingCategories" sender:self];
-=======
->>>>>>> 1d559a733e2b2a999a346c8ca74c724937e9a2e1
 }
 
 @end

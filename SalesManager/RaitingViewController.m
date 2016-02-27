@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray* identifierCellList;
 @property (strong, nonatomic) NSArray* identifierBottomCellList;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
+@property (strong, nonatomic) NSMutableArray* subRaitingCellList;
 
 @end
 
@@ -23,33 +24,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.identifierCellList = [[NSMutableArray alloc] init];
     self.identifierBottomCellList = @[@"ObservationCell", @"DevelopmentalActionCell", @"DueDataCell"];
-    //@"SubRaitingCell"
     
     [self addRaitingTableCell:_currentIndexPath];
     [self.identifierCellList addObjectsFromArray:@[@"CommentHeaderCell", @"CommentCell"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOrHideCommentRows:) name:@"addBottomRows" object:nil];
+    
+    self.subRaitingCellList = [NSMutableArray array];
+              [self addSubRaitingCell:5];
 }
 
--(void)addRaitingTableCell: (NSIndexPath *)indexPath{
-    switch (indexPath.row) {
-        case 0:
-            [self addCellToIdentifierCellList:4];
-            break;
-        case 1:
-            [self addCellToIdentifierCellList:6];
-            break;
-        case 2:
-            [self addCellToIdentifierCellList:2];
-            break;
-        case 3:
-            [self addCellToIdentifierCellList:6];
-            break;
-        default:
-            break;
-    }
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)infoButtonPressed:(id)sender {
+    [self showInformationPopover:sender];
+}
+
+- (IBAction)backButtonPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)setSubLabelList:(NSMutableArray *)subLabelList{
+    _subLabelList = subLabelList;
+}
+
+-(void)setCurrentEvaluation:(Evaluation *)currentEvaluation{
+    _currentEvaluation = currentEvaluation;
 }
 
 -(void)addCellToIdentifierCellList: (NSInteger)count{
@@ -58,13 +65,10 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)backButtonPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+-(void)addSubRaitingCell:(NSInteger)count{
+    for (int i =0; i < count; i++) {
+        [self.subRaitingCellList addObject:@"SubRaitingCell"];
+    }
 }
 
 -(void)setCurrentIndex:indexPath{
@@ -82,6 +86,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = self.identifierCellList[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    if([identifier isEqualToString:@"RaitingCell"]){
+        if(_currentIndexPath.row == 2){
+            ((RaitingTableViewCell *)cell).isSubRaitingExist = YES;
+        }
+        ((RaitingTableViewCell *)cell).raitingNameLabel.text = [_subLabelList objectAtIndex:indexPath.row];
+        [((RaitingTableViewCell *)cell) currentPointStyle:[_currentEvaluation.actionPlans objectAtIndex:indexPath.row].rating];
+    }
     return cell;
 }
 
@@ -112,36 +123,10 @@
     NSString *identifier = self.identifierCellList[indexPath.row];
     
     if ([identifier isEqualToString:@"ObservationCell"] || [identifier isEqualToString:@"DevelopmentalActionCell"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CommentsEvaluationPopover"];
-        
-        controller.modalPresentationStyle = UIModalPresentationPopover;
-        [self presentViewController:controller animated:YES completion:nil];
-        
-        UIPopoverPresentationController *popController = [controller popoverPresentationController];
-        popController.permittedArrowDirections = 0;
-        popController.delegate = self;
-        popController.sourceView = self.view;
-        
-        CGRect parent = self.view.frame;
-        popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 10, 10);
-        self.salesTitlePopover = popController;
+        [self showCommentsEvaluationPopover];
     }
     if ([identifier isEqualToString:@"DueDataCell"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"DueDataPopover"];
-        
-        controller.modalPresentationStyle = UIModalPresentationPopover;
-        [self presentViewController:controller animated:YES completion:nil];
-        
-        UIPopoverPresentationController *popController = [controller popoverPresentationController];
-        popController.permittedArrowDirections = UIPopoverArrowDirectionDown;
-        popController.delegate = self;
-        popController.sourceView = self.view;
-        
-        CGRect parent = self.view.frame;
-        popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 10, 10);
-        self.salesTitlePopover = popController;
+        [self showDueDataPopover];
     }
 }
 
@@ -158,7 +143,6 @@
 -(void) showOrHideCommentRows: (NSNotification*) notification {
     NSNumber *subMenuAction = [notification.userInfo objectForKey:@"subMenuAction"];
     NSInteger subMenuActionIndex = [subMenuAction intValue];
-    
     NSInteger rowIndex =  [self.raitingTableView indexPathForCell:[notification.userInfo objectForKey:@"cell"]].row;
     
     switch (subMenuActionIndex) {
@@ -170,9 +154,41 @@
             break;
         case SubMenuActionNull:
             break;
+        case SubMenuActionShowSubRaiting:
+            [self addSubRaitinfCellsToTable:rowIndex];
+            break;
+        case SubMenuActionHideSubRaiting:
+            [self removeSubRaitinfCellsToTable:rowIndex];
+            break;
         default:
             break;
     }
+}
+
+-(void)addSubRaitinfCellsToTable:(NSInteger) rowIndex{
+    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+        [self.identifierCellList insertObject:self.subRaitingCellList[i] atIndex:i+1+rowIndex];
+    }
+    NSIndexPath *newIndexPath = [[NSIndexPath alloc] init];
+    NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+        newIndexPath = [NSIndexPath indexPathForRow:rowIndex+i+1 inSection:0];
+        [indexPathArray addObject:newIndexPath];
+    }
+    [self.raitingTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationBottom];
+}
+
+-(void)removeSubRaitinfCellsToTable:(NSInteger) rowIndex{
+    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+        [self.identifierCellList removeObjectAtIndex:rowIndex + 1];
+    }
+    NSIndexPath *newIndexPath = [[NSIndexPath alloc] init];
+    NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+        newIndexPath = [NSIndexPath indexPathForRow:rowIndex+i+1 inSection:0];
+        [indexPathArray addObject:newIndexPath];
+    }
+    [self.raitingTableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
 }
 
 -(void) addCellsIdentifierToTable:(NSInteger) rowIndex{
@@ -188,6 +204,7 @@
     [self.raitingTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationBottom];
 }
 
+
 -(void)removeCellsIdentifierToTable:(NSInteger) rowIndex{
     for (int i = 0; i < self.identifierBottomCellList.count; i++) {
         [self.identifierCellList removeObjectAtIndex:rowIndex + 1];
@@ -201,7 +218,26 @@
     [self.raitingTableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
 }
 
-- (IBAction)infoButtonPressed:(id)sender {
+-(void)addRaitingTableCell: (NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:
+            [self addCellToIdentifierCellList:4];
+            break;
+        case 1:
+            [self addCellToIdentifierCellList:6];
+            break;
+        case 2:
+            [self addCellToIdentifierCellList:2];
+            break;
+        case 3:
+            [self addCellToIdentifierCellList:6];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)showInformationPopover:(id)sender{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"InformationPopover"];
     
@@ -213,6 +249,40 @@
     popController.delegate = self;
     popController.sourceView = sender;
     popController.sourceRect = CGRectMake(50, 10, 10, 10);
+}
+
+-(void)showCommentsEvaluationPopover{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CommentsEvaluationPopover"];
+    
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = 0;
+    popController.delegate = self;
+    popController.sourceView = self.view;
+    
+    CGRect parent = self.view.frame;
+    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 10, 10);
+    self.salesTitlePopover = popController;
+}
+
+-(void)showDueDataPopover{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"DueDataPopover"];
+    
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    popController.delegate = self;
+    popController.sourceView = self.view;
+    
+    CGRect parent = self.view.frame;
+    popController.sourceRect = CGRectMake(parent.size.width/2, parent.size.height/2, 10, 10);
+    self.salesTitlePopover = popController;
 }
 
 - (void)dealloc {

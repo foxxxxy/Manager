@@ -8,10 +8,6 @@
 
 #import "EmailTableViewCell.h"
 
-@interface EmailTableViewCell ()
-
-@end
-
 @implementation EmailTableViewCell
 
 

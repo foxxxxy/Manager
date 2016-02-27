@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DueDataViewController : UIViewController 
+@interface DueDataViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UIDatePicker *dueDataPicker;
 
 - (IBAction)cancelButtonPressed:(id)sender;

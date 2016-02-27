@@ -12,9 +12,9 @@
 
 @interface Evaluation : NSObject
 
-@property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSString *categoryName;
 @property (strong, nonatomic) NSString *comment;
-@property (strong, nonatomic) NSMutableArray *actionPlans;
+@property (strong, nonatomic) NSMutableArray <ActionPlanRequest *> *actionPlans;
 
 +(void) mapToObjectManager:(RKObjectManager *)objectManager;
 

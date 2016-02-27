@@ -11,14 +11,12 @@
 @interface ReviewViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITableView *reviewTableView;
+@property (strong, nonatomic) NSArray *subCategotiesLabelList;
 
 - (IBAction)backButtonPressed:(id)sender;
 - (IBAction)submitButtonPressed:(id)sender;
 - (IBAction)deleteButtonPressed:(id)sender;
 - (IBAction)infoButtonPressed:(id)sender;
-
-@property (strong, nonatomic) NSArray *subCategotiesLabelList;
-
 -(void)setEvaluationFullList:(NSMutableArray *)evaluationListFromServer;
 
 @end

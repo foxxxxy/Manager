@@ -9,6 +9,7 @@
 #import "ResetPasswordViewController.h"
 #import "Container.h"
 #import "LoginRequest.h"
+#import "AlertWindow.h"
 
 #define  REGULAREXPRESSIONPATTERN @"\\w+@\\w+.\\w+"
 
@@ -27,10 +28,8 @@
     // Do any additional setup after loading the view.
     
     self.preferredContentSize = CGSizeMake(400, 220);
-    
-    [[Container sharedInstance].restConfiguration configureRestKit];
-    
     self.loginRequest = [[LoginRequest alloc] init];
+    [[Container sharedInstance].restConfiguration configureRestKit];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,29 +48,14 @@
         [[Container sharedInstance].restConfiguration forgotPassword:self.email access:^(BOOL isLoginSuccessful){
             if (isLoginSuccessful) {
                 [self dismissViewControllerAnimated:YES completion:nil];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                                message:@"Password reset successfully. Reset instructions sent to your email"
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+                [AlertWindow showInfoErrorWindow:self info:@"Password reset successfully. Reset instructions sent to your email"];
                 
             }else if(!isLoginSuccessful){
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                                message:@"Invalid email adress"
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+                [AlertWindow showInfoErrorWindow:self info:@"Invalid email adress"];
             }
         }];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"Invalid email adress"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        [AlertWindow showInfoErrorWindow:self info:@"Invalid email adress"];
     }
 }
 
@@ -87,7 +71,6 @@
     
     BOOL didValidate = NO;
     
-    // Did we find a matching range
     if (matchRange.location != NSNotFound)
         didValidate = YES;
     

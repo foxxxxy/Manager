@@ -9,12 +9,16 @@
 #import "ReviewViewController.h"
 #import "ReviewTableViewCell.h"
 #import "Evaluation.h"
+#import "CategoriesInformationPopup.h"
+#import "RaitingViewController.h"
 
 @interface ReviewViewController ()
 
 @property (strong, nonatomic) NSArray *identifierCellList;
 @property (strong, nonatomic) NSArray *raitingCategotiesLabelList;
+@property (strong, nonatomic) NSArray *subRaitingCategotiesLabelList;
 @property (strong, nonatomic) NSMutableArray *evaluationList;
+@property (nonatomic) NSInteger infoButtonIndex;
 
 @end
 
@@ -32,6 +36,46 @@
                                    @[@"Manages time and workflow",@"Effectively analezws data", @"Problem solves",@"Utilizes available  resources effectively, including sales aids and clinical data", @"Demonstrates product knowelege",@"Effectively positions. Edwards vs. competitors"],
                                    @[@"Focuses on customer needs", @"Delivers on commitments"],
                                    @[@"Planning", @"Opening", @"Exploring", @"Demonstrating", @"Negotiating", @"Closing"], nil];
+    
+    self.subRaitingCategotiesLabelList = @[@[@"Has a writen weekly visit plan",
+                                             @"Has an up-to-date S.W.O.T analysis for agreed key Hospitals",
+                                             @"Has a written customer plan for agreed key Hospitals",
+                                             @"Stores customer information which is accessible",
+                                             @"Uses a day plan (which specifies time with key Stakeholders)"],
+                                           
+                                           @[@"Uses a purpose benefit statement",
+                                             @"Gains full audience attention",
+                                             @"States agenda and duration",
+                                             @"Gains agreement to proced",
+                                             @"Uses eye contact comfortably"],
+                                           
+                                           @[@"Prepares questions",
+                                             @"Asks a balance of open & closed questions",
+                                             @"Probes answers deeply",
+                                             @"Takes notes",
+                                             @"Plants idea to help the pitch",
+                                             @"Summarises"],
+                                           
+                                           @[@"Presents with structure",
+                                             @"Keeps attention",
+                                             @"Uses visual adis",
+                                             @"Provides clinical evidence",
+                                             @"Handles objections with confidence",
+                                             @"Closes clearly"],
+                                           
+                                           @[@"Has a written plan",
+                                             @"Aims high",
+                                             @"Has a walk away position",
+                                             @"Takes a strong stance",
+                                             @"Asks about customer needs and interests",
+                                             @"Trades low cost for high value"],
+                                           
+                                           @[@"Summarises needs",
+                                             @"Restates benefits of Edwards' proposal",
+                                             @"Asks for the order",
+                                             @"Handles objections",
+                                             @"Gets the order",
+                                             @"Agrees next steps"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,7 +89,7 @@
 }
 
 -(NSMutableArray *)sortEvaluationList:(NSMutableArray *)list{
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"category" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"categoryName" ascending:YES];
     NSMutableArray *sortedList = (NSMutableArray *)[list sortedArrayUsingDescriptors:@[sortDescriptor]];
     return sortedList;
 }
@@ -72,7 +116,8 @@
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+}
 
 - (IBAction)backButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -86,25 +131,44 @@
 }
 
 - (IBAction)infoButtonPressed:(id)sender {
+    [self indexButtonPressed:sender];
     [self showPopup];
-//    for (int i = 0; i < self.titles.count; i++) {
-//        if(((ReviewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]).infoButton == sender) {
-//            self.infoButtonIndex = i;
-//            break;
-//        }
-//    }
+}
+
+-(void)indexButtonPressed:(id) sender{
+    for (int i = 0; i < self.raitingCategotiesLabelList.count; i++) {
+        if(((ReviewTableViewCell*)[self.reviewTableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]).infoButton == sender) {
+            self.infoButtonIndex = i;
+            break;
+        }
+    }
 }
 
 -(void)showPopup{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesInformationPopup"];
-
+    CategoriesInformationPopup *controller = (CategoriesInformationPopup *)[storyboard instantiateViewControllerWithIdentifier:@"CategoriesInformationPopup"];
+    controller.buttonIndex = self.infoButtonIndex;
     controller.modalPresentationStyle = UIModalPresentationPopover;
     [self presentViewController:controller animated:YES completion:nil];
     
     UIPopoverPresentationController *popController = [controller popoverPresentationController];
     popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
-    popController.sourceView = self.reviewTableView;
-    popController.sourceRect = CGRectMake(50, 10, 10, 10);
+    popController.sourceView = ((ReviewTableViewCell*)[self.reviewTableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:self.infoButtonIndex inSection:0]]).infoButton;
+    popController.sourceRect = CGRectMake(13, 20, 10, 10);
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showCurrentRaiting"])
+    {
+        NSIndexPath *indexPath = [self.reviewTableView indexPathForSelectedRow];
+        
+        if(indexPath){
+            [segue.destinationViewController setCurrentIndex:indexPath];
+            [segue.destinationViewController setSubLabelList:[self.subCategotiesLabelList objectAtIndex:indexPath.row]];
+            [segue.destinationViewController setCurrentEvaluation:[self.evaluationList objectAtIndex:indexPath.row]];
+        }
+    }
+}
+
 @end

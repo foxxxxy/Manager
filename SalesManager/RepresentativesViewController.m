@@ -17,9 +17,9 @@
 
 @interface RepresentativesViewController ()
 
+@property (nonatomic) BOOL isRepresentativExist;
 @property (strong, nonatomic) NSMutableArray *representativesList;
 @property (strong, nonatomic) SpinnerViewController *spinnerController;
-@property (nonatomic) BOOL isRepresentativExist;
 @property (strong, nonatomic) NSMutableArray <EvaluationHistoryRequest *> *evaluationListFromServer;
 
 @end
@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     _isRepresentativExist = NO;
 }
 
@@ -114,7 +114,6 @@
 -(void)logoutUser{
     [[Container sharedInstance].restConfiguration logoutUser:^(BOOL isLogoutSuccessful){
         if (isLogoutSuccessful) {
-            //DELETE DB
         }
     }];
 }
@@ -128,7 +127,5 @@
         }];
     }];
 }
-
-
 
 @end

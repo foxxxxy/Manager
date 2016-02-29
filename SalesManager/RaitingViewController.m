@@ -9,6 +9,7 @@
 #import "RaitingViewController.h"
 #import "RaitingTableViewCell.h"
 #import "GeneralHeaderTableViewCell.h"
+#import "ActionPlanRequest.h"
 
 @interface RaitingViewController ()
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) NSArray* identifierBottomCellList;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 @property (strong, nonatomic) NSMutableArray* subRaitingCellList;
+@property (strong, nonatomic) NSArray *subratingTitles;
 
 @end
 
@@ -26,17 +28,14 @@
     [super viewDidLoad];
     
     self.identifierCellList = [[NSMutableArray alloc] init];
+    self.subRaitingCellList = [NSMutableArray array];
+    self.subratingTitles = [[NSArray alloc] init];
     self.identifierBottomCellList = @[@"ObservationCell", @"DevelopmentalActionCell", @"DueDataCell"];
     
     [self addRaitingTableCell:_currentIndexPath];
     [self.identifierCellList addObjectsFromArray:@[@"CommentHeaderCell", @"CommentCell"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOrHideCommentRows:) name:@"addBottomRows" object:nil];
-    
-    self.subRaitingCellList = [NSMutableArray array];
-              [self addSubRaitingCell:5];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -49,6 +48,10 @@
 
 - (IBAction)backButtonPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)setSubRaitingLabelList:(NSArray *)subRaitingLabelList{
+    _subRaitingLabelList = subRaitingLabelList;
 }
 
 -(void)setSubLabelList:(NSMutableArray *)subLabelList{
@@ -87,14 +90,44 @@
     NSString *identifier = self.identifierCellList[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     if([identifier isEqualToString:@"RaitingCell"]){
-        if(_currentIndexPath.row == 2){
+        if(_currentIndexPath.row == 3){
             ((RaitingTableViewCell *)cell).isSubRaitingExist = YES;
         }
-        ((RaitingTableViewCell *)cell).raitingNameLabel.text = [_subLabelList objectAtIndex:indexPath.row];
-        [((RaitingTableViewCell *)cell) currentPointStyle:[_currentEvaluation.actionPlans objectAtIndex:indexPath.row].rating];
+        ((RaitingTableViewCell *)cell).raitingNameLabel.text = [_subLabelList objectAtIndex:[self getCellPositionByIndex:indexPath.row]];
+        [((RaitingTableViewCell *)cell) currentPointStyle:[_currentEvaluation.actionPlans objectAtIndex:[self getCellPositionByIndex:indexPath.row]].rating];
+    }if([identifier isEqualToString:@"SubRaitingCell"]){
+        ((RaitingTableViewCell *)cell).raitingNameLabel.text = [self getTitleForSubratingCellAtIndex:indexPath.row];
     }
     return cell;
 }
+
+-(NSInteger) getCellPositionByIndex: (NSInteger) index {
+    NSInteger result = 0;
+    for (int i = 0; i < index; i++) {
+        if([self.identifierCellList[i] isEqualToString:@"RaitingCell"]){
+            result++;
+        }
+    }
+    return result;
+}
+
+-(NSString*) getTitleForSubratingCellAtIndex: (NSInteger) index {
+    NSInteger ratingCellIndex = 0;
+    NSInteger subratingCellIndex = 0;
+    
+    for (int i = 0; i < index; i++) {
+        if([self.identifierCellList[i] isEqualToString:@"RaitingCell"]) {
+            ratingCellIndex++;
+            subratingCellIndex = 0;
+        }
+        if([self.identifierCellList[i] isEqualToString:@"SubRaitingCell"]) {
+            subratingCellIndex++;
+        }
+    }
+    
+    return self.subRaitingLabelList[ratingCellIndex - 1][subratingCellIndex];
+}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *identifier = self.identifierCellList[indexPath.row];
@@ -145,6 +178,8 @@
     NSInteger subMenuActionIndex = [subMenuAction intValue];
     NSInteger rowIndex =  [self.raitingTableView indexPathForCell:[notification.userInfo objectForKey:@"cell"]].row;
     
+    RaitingTableViewCell *currentCell = [notification.userInfo objectForKey:@"cell"];
+    
     switch (subMenuActionIndex) {
         case SubMenuActionShow:
             [self addCellsIdentifierToTable:rowIndex];
@@ -155,36 +190,38 @@
         case SubMenuActionNull:
             break;
         case SubMenuActionShowSubRaiting:
-            [self addSubRaitinfCellsToTable:rowIndex];
+            [self addSubRaitingCellsToTable:rowIndex forCell: currentCell];
             break;
         case SubMenuActionHideSubRaiting:
-            [self removeSubRaitinfCellsToTable:rowIndex];
+            [self removeSubRaitingCellsToTable:rowIndex];
             break;
         default:
             break;
     }
 }
 
--(void)addSubRaitinfCellsToTable:(NSInteger) rowIndex{
-    for (int i = 0; i < self.subRaitingCellList.count; i++) {
-        [self.identifierCellList insertObject:self.subRaitingCellList[i] atIndex:i+1+rowIndex];
+
+-(void)addSubRaitingCellsToTable:(NSInteger) rowIndex forCell: (RaitingTableViewCell *) cell{
+    self.subratingTitles = self.subRaitingLabelList[[self.subLabelList indexOfObject: cell.raitingNameLabel.text]];
+    for (int i = 0; i < self.subratingTitles.count; i++) {
+        [self.identifierCellList insertObject:@"SubRaitingCell" atIndex:i+1+rowIndex];
     }
     NSIndexPath *newIndexPath = [[NSIndexPath alloc] init];
     NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+    for (int i = 0; i < self.subratingTitles.count; i++) {
         newIndexPath = [NSIndexPath indexPathForRow:rowIndex+i+1 inSection:0];
         [indexPathArray addObject:newIndexPath];
     }
     [self.raitingTableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationBottom];
 }
 
--(void)removeSubRaitinfCellsToTable:(NSInteger) rowIndex{
-    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+-(void)removeSubRaitingCellsToTable:(NSInteger) rowIndex{
+    for (int i = 0; i < self.subratingTitles.count; i++) {
         [self.identifierCellList removeObjectAtIndex:rowIndex + 1];
     }
     NSIndexPath *newIndexPath = [[NSIndexPath alloc] init];
     NSMutableArray *indexPathArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.subRaitingCellList.count; i++) {
+    for (int i = 0; i < self.subratingTitles.count; i++) {
         newIndexPath = [NSIndexPath indexPathForRow:rowIndex+i+1 inSection:0];
         [indexPathArray addObject:newIndexPath];
     }

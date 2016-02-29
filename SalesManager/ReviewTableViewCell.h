@@ -13,6 +13,8 @@
 @interface ReviewTableViewCell : UITableViewCell <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UILabel *reviewLabel;
+@property (strong, nonatomic) IBOutlet UILabel *raitingLabel;
+@property (strong, nonatomic) IBOutlet UILabel *perfomanceLabel;
 @property (strong, nonatomic) IBOutlet UITableView *unpairedCategoryTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pairCategoryTableView;
 @property (strong, nonatomic) IBOutletCollection(UITableView) NSArray *categoriesTables;

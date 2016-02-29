@@ -1092,6 +1092,10 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="eUo-q9-rAE" secondAttribute="bottom" constant="14" id="vd3-3H-FqR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="perfomanceLabel" destination="00X-kQ-sgI" id="Txl-Jh-VRf"/>
+                                            <outlet property="raitingLabel" destination="Z5N-j9-yuq" id="Gpf-ZF-7SE"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="RaitingCell" rowHeight="145" id="iDJ-uN-r8v" customClass="RaitingTableViewCell">
                                         <rect key="frame" x="0.0" y="103" width="768" height="145"/>
@@ -1497,7 +1501,7 @@ Observed</string>
                                             <outlet property="commentsTextView" destination="JEg-yf-gdW" id="22D-MF-qzC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubRaitingCell" rowHeight="75" id="C0P-CK-PIH">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SubRaitingCell" rowHeight="75" id="C0P-CK-PIH" customClass="RaitingTableViewCell">
                                         <rect key="frame" x="0.0" y="569" width="768" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C0P-CK-PIH" id="Eqc-JD-FHc">
@@ -1510,7 +1514,7 @@ Observed</string>
                                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="OQI-F6-2fp">
                                                             <rect key="frame" x="0.0" y="0.0" width="348" height="58"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVS-0D-cDt">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVS-0D-cDt" customClass="EmptyPointView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="58" height="58"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="empty-point.png" translatesAutoresizingMaskIntoConstraints="NO" id="lsn-OH-5sL">
@@ -1524,8 +1528,12 @@ Observed</string>
                                                                         </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <connections>
+                                                                        <outlet property="pointImage" destination="lsn-OH-5sL" id="725-Ua-4l6"/>
+                                                                        <outlet property="pointLabel" destination="fMM-sN-h6R" id="ued-mm-PK0"/>
+                                                                    </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PL9-F3-aPH">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PL9-F3-aPH" customClass="EmptyPointView">
                                                                     <rect key="frame" x="58" y="0.0" width="58" height="58"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="empty-point.png" translatesAutoresizingMaskIntoConstraints="NO" id="wwc-jR-ACC">
@@ -1539,8 +1547,12 @@ Observed</string>
                                                                         </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <connections>
+                                                                        <outlet property="pointImage" destination="wwc-jR-ACC" id="CGq-AE-6mW"/>
+                                                                        <outlet property="pointLabel" destination="7cO-VO-eMm" id="YIi-AB-tBY"/>
+                                                                    </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbD-Bn-fh6">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbD-Bn-fh6" customClass="EmptyPointView">
                                                                     <rect key="frame" x="116" y="0.0" width="58" height="58"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="empty-point.png" translatesAutoresizingMaskIntoConstraints="NO" id="TvH-6a-rUv">
@@ -1554,8 +1566,12 @@ Observed</string>
                                                                         </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <connections>
+                                                                        <outlet property="pointImage" destination="TvH-6a-rUv" id="MwQ-4y-X5i"/>
+                                                                        <outlet property="pointLabel" destination="Sf5-jA-5ti" id="qoF-R7-stO"/>
+                                                                    </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYg-Vh-Sgn">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYg-Vh-Sgn" customClass="EmptyPointView">
                                                                     <rect key="frame" x="174" y="0.0" width="58" height="58"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="empty-point.png" translatesAutoresizingMaskIntoConstraints="NO" id="v2y-Qq-Nov">
@@ -1569,8 +1585,12 @@ Observed</string>
                                                                         </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <connections>
+                                                                        <outlet property="pointImage" destination="v2y-Qq-Nov" id="L3Q-nV-azA"/>
+                                                                        <outlet property="pointLabel" destination="wQG-Gd-YN3" id="8Ue-Nk-gz7"/>
+                                                                    </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y4j-pq-4l0">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y4j-pq-4l0" customClass="EmptyPointView">
                                                                     <rect key="frame" x="232" y="0.0" width="58" height="58"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="empty-point.png" translatesAutoresizingMaskIntoConstraints="NO" id="ADU-Yp-I3O">
@@ -1584,8 +1604,12 @@ Observed</string>
                                                                         </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <connections>
+                                                                        <outlet property="pointImage" destination="ADU-Yp-I3O" id="T49-6a-lQn"/>
+                                                                        <outlet property="pointLabel" destination="xbd-Md-fU1" id="LQK-Qi-XDE"/>
+                                                                    </connections>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSS-T0-lW6">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSS-T0-lW6" customClass="EmptyPointView">
                                                                     <rect key="frame" x="290" y="0.0" width="58" height="58"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="empty-point.png" translatesAutoresizingMaskIntoConstraints="NO" id="fcJ-wb-xTI">
@@ -1599,6 +1623,10 @@ Observed</string>
                                                                         </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <connections>
+                                                                        <outlet property="pointImage" destination="fcJ-wb-xTI" id="hxE-Fc-jBX"/>
+                                                                        <outlet property="pointLabel" destination="I4C-0L-GU8" id="uoA-pc-o3w"/>
+                                                                    </connections>
                                                                 </view>
                                                             </subviews>
                                                             <constraints>
@@ -1625,22 +1653,33 @@ Observed</string>
                                                         <constraint firstItem="OQI-F6-2fp" firstAttribute="centerX" secondItem="xdo-p2-XbD" secondAttribute="centerX" id="teo-vh-ZtX"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Has a written weekly visit plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJN-Ye-lFE">
-                                                    <rect key="frame" x="18" y="26" width="732" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Has a written weekly visit plan" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJN-Ye-lFE">
+                                                    <rect key="frame" x="18" y="8" width="239" height="58"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="rJN-Ye-lFE" firstAttribute="top" secondItem="Eqc-JD-FHc" secondAttribute="topMargin" id="0yv-bQ-pJ7"/>
                                                 <constraint firstItem="xdo-p2-XbD" firstAttribute="bottom" secondItem="Eqc-JD-FHc" secondAttribute="bottomMargin" id="46X-p3-klJ"/>
-                                                <constraint firstItem="rJN-Ye-lFE" firstAttribute="centerX" secondItem="Eqc-JD-FHc" secondAttribute="centerX" id="9QE-Ap-Bzw"/>
+                                                <constraint firstItem="rJN-Ye-lFE" firstAttribute="centerX" secondItem="Eqc-JD-FHc" secondAttribute="centerX" constant="-246.5" id="9QE-Ap-Bzw"/>
                                                 <constraint firstItem="rJN-Ye-lFE" firstAttribute="centerY" secondItem="Eqc-JD-FHc" secondAttribute="centerY" id="IEe-CM-o5r"/>
                                                 <constraint firstItem="rJN-Ye-lFE" firstAttribute="leading" secondItem="Eqc-JD-FHc" secondAttribute="leadingMargin" constant="10" id="OqK-wN-f1c"/>
                                                 <constraint firstItem="xdo-p2-XbD" firstAttribute="top" secondItem="Eqc-JD-FHc" secondAttribute="topMargin" id="Y8X-jl-Oe4"/>
+                                                <constraint firstItem="rJN-Ye-lFE" firstAttribute="bottom" secondItem="Eqc-JD-FHc" secondAttribute="bottomMargin" id="cbx-Hq-qqE"/>
                                                 <constraint firstItem="xdo-p2-XbD" firstAttribute="trailing" secondItem="Eqc-JD-FHc" secondAttribute="trailingMargin" id="lfH-2G-lz9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="raitingNameLabel" destination="rJN-Ye-lFE" id="yAL-Jz-Fvd"/>
+                                            <outletCollection property="pointViewCollection" destination="SVS-0D-cDt" id="1UV-p2-V6v"/>
+                                            <outletCollection property="pointViewCollection" destination="PL9-F3-aPH" id="Rhb-W8-N24"/>
+                                            <outletCollection property="pointViewCollection" destination="rbD-Bn-fh6" id="Q1D-rn-xrY"/>
+                                            <outletCollection property="pointViewCollection" destination="vYg-Vh-Sgn" id="y44-jC-fpo"/>
+                                            <outletCollection property="pointViewCollection" destination="y4j-pq-4l0" id="mHB-dw-cRH"/>
+                                            <outletCollection property="pointViewCollection" destination="OSS-T0-lW6" id="lkF-Rn-QEP"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -2067,6 +2106,8 @@ Observed</string>
                                         <connections>
                                             <outlet property="infoButton" destination="rgO-Kn-UxE" id="xfe-Tz-y73"/>
                                             <outlet property="pairCategoryTableView" destination="cT3-Ob-MYg" id="rQl-j9-PYz"/>
+                                            <outlet property="perfomanceLabel" destination="0hv-Ku-SWg" id="Sei-Zd-X8d"/>
+                                            <outlet property="raitingLabel" destination="Eu6-Qq-6NR" id="WfF-IO-Yk0"/>
                                             <outlet property="reviewLabel" destination="MNW-nH-PVY" id="ZeT-XV-2zH"/>
                                             <outlet property="unpairedCategoryTableView" destination="NP8-aU-UTS" id="J6j-Ju-8gb"/>
                                             <outletCollection property="categoriesTables" destination="NP8-aU-UTS" id="FLu-CI-v2M"/>

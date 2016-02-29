@@ -10,6 +10,7 @@
 #import "SubReviewTableCell.h"
 #import "ReviewViewController.h"
 #import "Evaluation.h"
+#import "ActionPlanRequest.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -69,18 +70,22 @@ alpha:1.0]
     NSString *identifier = @"SubReviewCell";
     SubReviewTableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     cell.categoryNameLabel.text = ((NSArray*)self.evalTitles[[self.categoriesTables indexOfObject:tableView]])[indexPath.row];
-    cell.raitingLabel.text = [self raitingToString:indexPath cell: cell];
+    
+    //КАКА-ЯТО ЖОПА
+//    cell.raitingLabel.text = [self raitingToString:indexPath cell: cell];
     return cell;
 }
 
 -(NSString *)raitingToString:(NSIndexPath *)indexPath cell :(UITableViewCell *) cell{
-    NSInteger raiting = [[self.currentEvaluation.actionPlans objectAtIndex:indexPath.row] rating];
-    if (raiting < 0) {
+    NSInteger rating = [[self.currentEvaluation.actionPlans objectAtIndex:indexPath.row] rating];
+    if (rating < 0) {
         return @"";
     }
-    [self styleRaitingLabel:cell withRaiting:raiting];
-    return [NSString stringWithFormat:@"%d", raiting];
+    [self styleRaitingLabel:cell withRaiting:rating];
+    return [NSString stringWithFormat:@"%d", rating];
 }
+
+
 
 -(void)styleRaitingLabel:(UITableViewCell *)cell withRaiting: (NSInteger) raiting{
     ((SubReviewTableCell *)cell).raitingLabel.font = [((SubReviewTableCell *)cell).raitingLabel.font fontWithSize:14.0f];

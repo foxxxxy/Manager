@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GeneralHeaderTableViewCell : UITableViewCell 
+@property (strong, nonatomic) IBOutlet UILabel *raitingLabel;
+@property (strong, nonatomic) IBOutlet UILabel *perfomanceLabel;
 
 @end

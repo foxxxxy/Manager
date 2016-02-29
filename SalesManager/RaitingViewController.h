@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *raitingTableView;
 @property (strong, nonatomic) NSMutableArray *subLabelList;
+@property (strong, nonatomic) NSArray *subRaitingLabelList;
 @property (strong, nonatomic) Evaluation *currentEvaluation;
 
 - (IBAction)backButtonPressed:(id)sender;

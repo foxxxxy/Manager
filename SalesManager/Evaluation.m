@@ -24,9 +24,10 @@
                                                         @"rating": @"rating",
                                                         @"dueDateUTC" : @"dueDateUTC"}];
     
+    
     [mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"actionPlans" toKeyPath:@"actionPlans" withMapping:childMapping]];
     
-    [childMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"subActionPlans" toKeyPath:@"subActionPlans" withMapping:childMapping]];
+    [childMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"actionPlans" toKeyPath:@"actionPlans" withMapping:childMapping]];
     
     [objectManager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:mapping
                                                                                        method:RKRequestMethodAny

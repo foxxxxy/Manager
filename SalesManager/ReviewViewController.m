@@ -12,6 +12,12 @@
 #import "CategoriesInformationPopup.h"
 #import "RaitingViewController.h"
 
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
+
 @interface ReviewViewController ()
 
 @property (strong, nonatomic) NSArray *identifierCellList;
@@ -112,8 +118,57 @@
     cell.reviewLabel.text = [self.raitingCategotiesLabelList objectAtIndex:indexPath.row];
     cell.subLabelList = [self.subCategotiesLabelList objectAtIndex:indexPath.row];
     cell.currentEvaluation = [self.evaluationList objectAtIndex:indexPath.row];
+    cell.raitingLabel.text = [self showOverallRating:[self calculateRating:cell.currentEvaluation] cell:cell];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
+}
+
+-(NSInteger)calculateRating:(Evaluation *) currentEvaluation{
+    NSInteger overallRating = 0;
+    NSInteger sum = 0;
+    NSLog(@"currentEvaluation.actionPlans.count %d", currentEvaluation.actionPlans.count);
+    
+    for (int i = 0; i < currentEvaluation.actionPlans.count; i++) {
+        if (currentEvaluation.actionPlans[i].rating > 0) {
+            sum += currentEvaluation.actionPlans[i].rating;
+        }
+    }
+    
+    overallRating = sum/currentEvaluation.actionPlans.count;
+    NSLog(@"overallRating %d", overallRating);
+    return overallRating;
+}
+
+-(NSString *)showOverallRating:(NSInteger)rating cell :(UITableViewCell *) cell{
+    if (rating <= 0) {
+        return @"Raiting";
+    }
+    [self styleGeneralRaitingLabel:cell withRaiting:rating];
+    return [NSString stringWithFormat:@"%d", rating];
+}
+
+-(void)styleGeneralRaitingLabel:(UITableViewCell *)cell withRaiting: (NSInteger) raiting{
+    ((ReviewTableViewCell *)cell).raitingLabel.font = [((ReviewTableViewCell *)cell).raitingLabel.font fontWithSize:14.0f];
+    switch (raiting) {
+        case 1:
+            ((ReviewTableViewCell *)cell).raitingLabel.textColor = [UIColor redColor];
+            ((ReviewTableViewCell *)cell).raitingLabel.font = [((ReviewTableViewCell *)cell).raitingLabel.font fontWithSize:14.0f];
+            break;
+        case 2:
+            ((ReviewTableViewCell *)cell).raitingLabel.textColor = [UIColor redColor];
+            break;
+        case 3:
+            ((ReviewTableViewCell *)cell).raitingLabel.textColor = [UIColor orangeColor];
+            break;
+        case 4:
+            ((ReviewTableViewCell *)cell).raitingLabel.textColor = UIColorFromRGB(0x5D8C17);;
+            break;
+        case 5:
+            ((ReviewTableViewCell *)cell).raitingLabel.textColor = UIColorFromRGB(0x5D8C17);;
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -167,6 +222,7 @@
             [segue.destinationViewController setCurrentIndex:indexPath];
             [segue.destinationViewController setSubLabelList:[self.subCategotiesLabelList objectAtIndex:indexPath.row]];
             [segue.destinationViewController setCurrentEvaluation:[self.evaluationList objectAtIndex:indexPath.row]];
+            [segue.destinationViewController setSubRaitingLabelList:self.subRaitingCategotiesLabelList];
         }
     }
 }

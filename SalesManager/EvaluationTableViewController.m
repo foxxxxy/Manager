@@ -18,6 +18,8 @@
 #import "SpinnerViewController.h"
 #import "CustomerInfoViewController.h"
 #import "ReviewViewController.h"
+#import "AlertWindow.h"
+#import "EmailTableViewCell.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -38,6 +40,8 @@ alpha:1.0]
 @property (strong, nonatomic) SpinnerViewController *spinnerController;
 @property (strong, nonatomic) NSMutableArray *evaluationListFromServer;
 
+@property (nonatomic, strong) NSMutableDictionary *cellsMap;
+
 @end
 
 @implementation EvaluationTableViewController
@@ -45,6 +49,8 @@ alpha:1.0]
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.identifierCellList = [[NSMutableArray alloc] initWithObjects:@"HeaderCell", @"NameCell", @"TitleCell", @"EmailCell", @"ButtonCell", @"HeaderHistoryCell", nil];
+    
+    _cellsMap = [NSMutableDictionary new];
     
     [self showEvaluationCells];
 }
@@ -81,7 +87,15 @@ alpha:1.0]
 }
 
 - (IBAction)newEvaluationButtonPressed:(id)sender {
-    [self showCustomerInfoPopover];
+    NSString *fullName = ((SalesNameTableViewCell *)[self.tableView cellForRowAtIndexPath:_cellsMap[@"NameCell"]]).fullNameTextView.text;
+    NSString *title = self.titleCell.titleSalesLabel.text ;
+    NSString *email = ((EmailTableViewCell *)[self.tableView cellForRowAtIndexPath:_cellsMap[@"EmailCell"]]).emailTextView.text;
+    
+    if ([fullName length] != 0 && [title length] != 0 && [email length] != 0){
+        [self showCustomerInfoPopover];
+    } else {
+        [AlertWindow showInfoErrorWindow:self info:NSLocalizedString(@"Fill all fields before adding evaluations", nil)];
+    }
 }
 
 
@@ -103,6 +117,8 @@ alpha:1.0]
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = self.identifierCellList[indexPath.row];
+    [_cellsMap setObject:indexPath forKey:identifier];
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     if (_isRepresentativeExist) {
         SalesRepresentative *representative = [_representativesList objectAtIndex:_currentIndexPath.row];
